@@ -10,6 +10,7 @@ import random
 import sys
 
 # Import 
+import os
 import config
 import logger
 import stimulus_handler
@@ -30,13 +31,16 @@ def main():
 
     # --- 2. Setup All Components ---
     try:
-        # Initialize GUI window
+# Initialize GUI window
         window = gui_utils.setup_window(config)
 
         # Initialize Parallel Port connection for markers
         marker = eeg_handler.MarkerHandler(config.PARALLEL_PORT_ADDRESS)
 
-        # Load or create the master stimulus list
+        # !! KORREKTUR: Rufen Sie dies zuerst auf, um den 'logs'-Ordner zu erstellen !!
+        log_filepath = logger.setup_logfile(participant_id, config.LOGS_PATH)
+
+        # Load or create the master stimulus list (funktioniert jetzt)
         trial_list = stimulus_handler.get_trial_list(
             participant_id=participant_id,
             log_dir=config.LOGS_PATH,
@@ -45,10 +49,7 @@ def main():
             n_trials=config.N_TRIALS
         )
 
-        # Setup the behavioral data log file
-        log_filepath = logger.setup_logfile(participant_id, config.LOGS_PATH)
-
-        # Check how many trials are *already* completed (for crash recovery)
+        # Check how many trials are *already* completed
         completed_trials = logger.get_completed_trial_count(participant_id, config.LOGS_PATH)
 
     except Exception as e:

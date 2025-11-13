@@ -34,10 +34,10 @@ BASELINE_DURATION_MEAN = 3.75  # Mean duration of the baseline
 BASELINE_DURATION_JITTER = 0.75  # Max +/- jitter (e.g., 3.75 +/- 0.75 -> 3.0s to 4.5s)
 
 # Duration to play each music stimulus
-STIMULUS_DURATION = 20.0
+STIMULUS_DURATION = 5.0
 
 # Fixed duration for the participant to enter their ratings
-RESPONSE_DURATION = 6.0
+RESPONSE_DURATION = 15.0
 
 # Duration of the blank screen (Inter-Trial Interval) between trials
 ITI_DURATION = 1.5
@@ -52,7 +52,7 @@ GENRES_TO_INCLUDE = []
 
 # Number of trials to run. This will be the number of songs
 # randomly selected from the allowed genres.
-N_TRIALS = 40
+N_TRIALS = 2
 
 # Screen settings for Psychopy
 SCREEN_SIZE = [1000, 600]

@@ -1,0 +1,6 @@
+participant_id,trial_num,stimulus_name,familiarity_rating,liking_rating
+sub1,1,Mozart10.wav,0,0
+sub1,2,Bach16.wav,0,0
+sub1,3,Dvorak02.wav,1,5
+sub1,4,Strauss01.wav,1,5
+sub1,5,Strauss04.wav,5,5
