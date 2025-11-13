@@ -75,68 +75,55 @@ def play_stimulus(filepath):
         print(f"Details: {e}")
         return None
 
+# In gui_utils.py
+
 def get_likert_responses(window, config, marker_handler):
     """
-    Displays the two Likert scale questions and collects two
-    1-5 keypresses within a fixed time window.
+    Displays two sequential Likert scale questions (Familiarity, then Liking)
+    and collects a 1-5 keypress for each within a fixed time window.
     
     Returns:
         (int, int): A tuple of (familiarity_rating, liking_rating).
-                    Returns (0, 0) if the user ran out of time.
+                    Returns (0) for any question the user ran out of time on.
     """
-    # --- 1. Setup Stimuli ---
+    
+    # --- 1. Setup Stimuli (Text and Scales) ---
     fam_question = visual.TextStim(window, 
                                    text=config.FAMILIARITY_QUESTION,
-                                   pos=(0, 0.6), height=0.12)
+                                   pos=(0, 0.3), height=0.12)
     lik_question = visual.TextStim(window, 
                                    text=config.LIKING_QUESTION,
-                                   pos=(0, 0.0), height=0.12)
+                                   pos=(0, 0.3), height=0.12)
     
-    # Create scale labels
+    # Create scale labels (we'll reuse this for both questions)
     scale_labels = []
     positions = [-0.6, -0.3, 0, 0.3, 0.6] # X-positions for 1, 2, 3, 4, 5
     for i, label in enumerate(config.LIKERT_LABELS):
-        # Familiarity scale
         scale_labels.append(visual.TextStim(window, text=label,
-                             pos=(positions[i], 0.4), height=0.08))
-        # Liking scale
-        scale_labels.append(visual.TextStim(window, text=label,
-                             pos=(positions[i], -0.2), height=0.08))
+                             pos=(positions[i], 0.0), height=0.08))
 
-    # Visual feedback for selected answers
-    fam_feedback = visual.TextStim(window, text="", color='cyan', 
-                                   pos=(0, 0.3), height=0.15)
-    lik_feedback = visual.TextStim(window, text="", color='cyan', 
-                                   pos=(0, -0.3), height=0.15)
+    # Visual feedback for selected answer
+    feedback_stim = visual.TextStim(window, text="", color='cyan', 
+                                    pos=(0, -0.3), height=0.15)
 
-    # --- 2. Run Response Loop ---
+    # --- 2. Initialize Variables ---
     timer = core.Clock()
-    timer.reset()
-    
     familiarity_rating = 0
     liking_rating = 0
     
     # Clear any keys pressed before the window appeared
     event.clearEvents() 
-    
-    while timer.getTime() < config.RESPONSE_DURATION:
-        # Draw all stimuli on every frame
+
+    # --- 3. Run Familiarity Question Loop ---
+    timer.reset()
+    while timer.getTime() < config.FAMILIARITY_RESPONSE_DURATION:
+        # Draw question and scale
         fam_question.draw()
-        lik_question.draw()
         for label in scale_labels:
             label.draw()
-        
-        # Show feedback
-        if familiarity_rating > 0:
-            fam_feedback.setText(str(familiarity_rating))
-            fam_feedback.draw()
-        if liking_rating > 0:
-            lik_feedback.setText(str(liking_rating))
-            lik_feedback.draw()
-            
         window.flip()
         
-        # Check for keypresses
+        # Check for keypress
         keys = event.getKeys(keyList=['1', '2', '3', '4', '5', 'escape'])
         
         if 'escape' in keys:
@@ -144,32 +131,60 @@ def get_likert_responses(window, config, marker_handler):
             core.quit()
             
         if keys:
-            key = int(keys[0]) 
+            familiarity_rating = int(keys[0])
             
-            if familiarity_rating == 0:
-                familiarity_rating = key
-            elif liking_rating == 0:
-                liking_rating = key
-                
-                # --- Got both responses ---
-                # 1. Send the response marker 
-                response_code = (config.MARKERS["RESPONSE_ID_BASE"] + 
-                                (familiarity_rating * 10) + 
-                                liking_rating)
-                marker_handler.send_marker(response_code)
-                
-                # 2. Send the generic "response made" marker
-                marker_handler.send_marker(config.MARKERS["RESPONSE_MADE"])
-                
-                # 3. Give brief feedback and exit the loop
-                fam_feedback.setText(str(familiarity_rating))
-                lik_feedback.setText(str(liking_rating))
-                fam_feedback.draw()
-                lik_feedback.draw()
-                window.flip()
-                core.wait(0.5) # Show final answer for 500ms
-                return (familiarity_rating, liking_rating)
+            # Show feedback and wait for 0.5s
+            feedback_stim.setText(str(familiarity_rating))
+            fam_question.draw()
+            for label in scale_labels:
+                label.draw()
+            feedback_stim.draw()
+            window.flip()
+            core.wait(0.5) # Show feedback
+            break # Exit familiarity loop
+            
+    # If loop finished without a response, rating remains 0 (timeout)
 
-    # --- 3. Time Ran Out ---
-    print("Warning: Participant timed out on response.")
-    return (0, 0)
+    # --- 4. Run Liking Question Loop ---
+    event.clearEvents() # Clear keys from first question
+    timer.reset()
+    while timer.getTime() < config.LIKING_RESPONSE_DURATION:
+        # Draw question and scale
+        lik_question.draw()
+        for label in scale_labels:
+            label.draw()
+        window.flip()
+        
+        # Check for keypress
+        keys = event.getKeys(keyList=['1', '2', '3', '4', '5', 'escape'])
+        
+        if 'escape' in keys:
+            window.close()
+            core.quit()
+            
+        if keys:
+            liking_rating = int(keys[0])
+            
+            # Show feedback and wait for 0.5s
+            feedback_stim.setText(str(liking_rating))
+            lik_question.draw()
+            for label in scale_labels:
+                label.draw()
+            feedback_stim.draw()
+            window.flip()
+            core.wait(0.5) # Show feedback
+            break # Exit liking loop
+
+    # --- 5. Send Markers and Return ---
+    # We still send *one* marker that encodes both responses
+    # If a question timed out, its value is 0
+    
+    response_code = (config.MARKERS["RESPONSE_ID_BASE"] + 
+                    (familiarity_rating * 10) + 
+                    liking_rating)
+    marker_handler.send_marker(response_code)
+    
+    # Send the generic "response made" marker
+    marker_handler.send_marker(config.MARKERS["RESPONSE_MADE"])
+
+    return (familiarity_rating, liking_rating)

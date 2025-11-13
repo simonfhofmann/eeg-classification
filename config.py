@@ -46,10 +46,6 @@ ITI_DURATION = 1.5
 # --------------------------
 # 4. EXPERIMENT PARAMETERS
 # --------------------------
-# List of genre folders (within STIMULI_ROOT_PATH) to pull stimuli from.
-# Example: ["genre_pop", "genre_classical"]
-# Leave empty to include all subfolders: []
-GENRES_TO_INCLUDE = []
 
 # Number of trials to run. This will be the number of songs
 # randomly selected from the allowed genres.

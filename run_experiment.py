@@ -18,12 +18,33 @@ import eeg_handler
 import gui_utils
 
 def main():
-    # --- 1. Get Participant ID ---
+# --- 1. Get Participant Info ---
     try:
         participant_id = input("Enter Participant ID (e.g., sub-001): ")
         if not participant_id:
             print("Participant ID cannot be empty. Exiting.")
             sys.exit()
+            
+        # --- NEW SECTION: Get Genres ---
+        print("-" * 30)
+        print(f"Available genres in '{config.STIMULI_ROOT_PATH}':")
+        all_dirs = [d for d in os.listdir(config.STIMULI_ROOT_PATH) 
+                    if os.path.isdir(os.path.join(config.STIMULI_ROOT_PATH, d))]
+        print(f"  {', '.join(all_dirs)}")
+        print("-" * 30)
+        
+        # 1. Get FAMILIAR genres
+        fam_genre_input = input("Enter FAMILIAR genres (comma-separated): ")
+        familiar_genres = [g.strip() for g in fam_genre_input.split(',')]
+        
+        # 2. Get UNFAMILIAR genres
+        unfam_genre_input = input("Enter UNFAMILIAR genres (comma-separated): ")
+        unfamiliar_genres = [g.strip() for g in unfam_genre_input.split(',')]
+        
+        print(f"Familiar Pool: {familiar_genres}")
+        print(f"Unfamiliar Pool: {unfamiliar_genres}")
+        # --- END NEW SECTION ---
+            
     except KeyboardInterrupt:
         sys.exit()
 
@@ -37,15 +58,15 @@ def main():
         # Initialize Parallel Port connection for markers
         marker = eeg_handler.MarkerHandler(config.PARALLEL_PORT_ADDRESS)
 
-        # !! KORREKTUR: Rufen Sie dies zuerst auf, um den 'logs'-Ordner zu erstellen !!
         log_filepath = logger.setup_logfile(participant_id, config.LOGS_PATH)
 
-        # Load or create the master stimulus list (funktioniert jetzt)
+        # Load or create the master stimulus list
         trial_list = stimulus_handler.get_trial_list(
             participant_id=participant_id,
             log_dir=config.LOGS_PATH,
             stim_root_path=config.STIMULI_ROOT_PATH,
-            genres=config.GENRES_TO_INCLUDE,
+            familiar_genres=familiar_genres,     # <-- PASS FAMILIAR LIST
+            unfamiliar_genres=unfamiliar_genres, # <-- PASS UNFAMILIAR LIST
             n_trials=config.N_TRIALS
         )
 
@@ -111,19 +132,16 @@ def main():
             # 3. RESPONSE
             marker.send_marker(config.MARKERS["RESPONSE_WINDOW_START"])
             
-            # This function handles its own timing and marker sending for the response
             responses = gui_utils.get_likert_responses(window, config, marker)
             familiarity, liking = responses # (e.g., (4, 5) or (0, 0) if timed out)
 
             # 4. LOG DATA
-            # Save this trial's data to the CSV *immediately*
             trial_data = [participant_id, current_trial_num, 
                           os.path.basename(stimulus_path), 
                           familiarity, liking]
             logger.log_trial(log_filepath, trial_data)
             print(f"Logged responses: Familiarity={familiarity}, Liking={liking}")
 
-            # 5. ITI
             marker.send_marker(config.MARKERS["TRIAL_END_ITI_START"])
             gui_utils.show_message(window, text="", wait_for_key=False) 
             core.wait(config.ITI_DURATION) 
