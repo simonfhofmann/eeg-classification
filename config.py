@@ -37,7 +37,8 @@ BASELINE_DURATION_JITTER = 0.75  # Max +/- jitter (e.g., 3.75 +/- 0.75 -> 3.0s t
 STIMULUS_DURATION = 5.0
 
 # Fixed duration for the participant to enter their ratings
-RESPONSE_DURATION = 15.0
+FAMILIARITY_RESPONSE_DURATION = 5.0  # Time for familiarity question
+LIKING_RESPONSE_DURATION = 5.0       # Time for liking question
 
 # Duration of the blank screen (Inter-Trial Interval) between trials
 ITI_DURATION = 1.5
