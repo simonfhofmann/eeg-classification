@@ -118,3 +118,13 @@ END_EXPERIMENT_TEXT = (
     "The experiment is now complete.\n\n"
     "Thank you for your participation!"
 )
+
+# --------------------------
+# 7. DEBUGGING & DEVELOPMENT
+# --------------------------
+# Set to True to run the experiment without a parallel port.
+# Markers will be printed to the console instead of sent to hardware.
+#
+# !! SET TO False FOR ACTUAL DATA COLLECTION !!
+#
+DEBUG_MODE = True
