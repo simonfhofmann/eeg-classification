@@ -1,12 +1,6 @@
 # ----------------------------------------------------------------------
 # stimulus_handler.py
-#
-# Handles finding, loading, and randomizing the stimulus list.
-# Manages the persistent "stimulus order" file to ensure
-# a participant always gets the same random order, even if
-# the experiment is restarted.
-#
-# *Updated for Two-Pool Paradigm*
+# Manages the selection and ordering of stimuli
 # ----------------------------------------------------------------------
 
 import os
@@ -39,7 +33,6 @@ def _find_stimuli(stim_root_path, included_genres):
                 all_wav_files.append(os.path.join(full_dir_path, filename))
 
     if not all_wav_files:
-        # This is now just a warning, as one pool might be empty by design
         print(f"Warning: No .wav files found for genres: {included_genres}")
         
     return all_wav_files
@@ -50,41 +43,41 @@ def _robust_sample(pool, k, pool_name=""):
     Uses repetition if the pool is smaller than k.
     """
     if not pool:
-        # If the pool is empty, we can't sample anything
         raise ValueError(f"Cannot sample {k} items: The {pool_name} pool is empty.")
 
     if len(pool) < k:
         print(f"Warning: Not enough unique stimuli in {pool_name} pool ({len(pool)}). "
               f"Repeating stimuli to fill {k} trials.")
-        # Random sampling *with* replacement
         return random.choices(pool, k=k)
     else:
-        # Random sampling *without* replacement
         return random.sample(pool, k)
 
-def _save_stimulus_list(filepath, trial_list):
-    """Internal function to save the generated list to a CSV."""
+def _save_stimulus_list(filepath, trial_list_tuples):
+    """Internal function to save the generated list (with pool labels) to a CSV."""
     try:
         with open(filepath, 'w', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(["stimulus_path"])  # Header
-            for item in trial_list:
-                writer.writerow([item])
+            # --- NEW: Added origin_pool column ---
+            writer.writerow(["stimulus_path", "origin_pool"])
+            for item_tuple in trial_list_tuples:
+                writer.writerow(item_tuple)
     except IOError as e:
         print(f"CRITICAL ERROR: Could not save stimulus order file to {filepath}")
         print(f"Details: {e}")
         raise
 
 def _load_stimulus_list(filepath):
-    """Internal function to load a previously saved list."""
-    trial_list = []
+    """Internal function to load a previously saved list (now as tuples)."""
+    trial_list_tuples = []
     try:
         with open(filepath, 'r') as f:
             reader = csv.reader(f)
             next(reader)  # Skip header
             for row in reader:
-                trial_list.append(row[0])
-        return trial_list
+                if row: # Make sure row is not empty
+                    # --- NEW: Appending a tuple (path, pool) ---
+                    trial_list_tuples.append((row[0], row[1])) 
+        return trial_list_tuples
     except Exception as e:
         print(f"CRITICAL ERROR: Could not *load* stimulus order file from {filepath}")
         print(f"Details: {e}")
@@ -94,9 +87,7 @@ def get_trial_list(participant_id, log_dir, stim_root_path,
                    familiar_genres, unfamiliar_genres, n_trials):
     """
     This is the main function for this module.
-    It builds a trial list by sampling from a familiar and unfamiliar pool.
-    - If a list *already exists* for this participant, it loads that list.
-    - If NO: It creates a new list and saves it.
+    Builds a trial list by sampling and *tagging* items from two pools.
     """
     order_filepath = get_stim_order_filepath(participant_id, log_dir)
     
@@ -114,12 +105,16 @@ def get_trial_list(participant_id, log_dir, stim_root_path,
         familiar_pool = _find_stimuli(stim_root_path, familiar_genres)
         unfamiliar_pool = _find_stimuli(stim_root_path, unfamiliar_genres)
         
-        # 3. Sample from each pool robustly
-        familiar_list = _robust_sample(familiar_pool, n_familiar, "FAMILIAR")
-        unfamiliar_list = _robust_sample(unfamiliar_pool, n_unfamiliar, "UNFAMILIAR")
+        # 3. Sample from each pool
+        familiar_list_sampled = _robust_sample(familiar_pool, n_familiar, "FAMILIAR")
+        unfamiliar_list_sampled = _robust_sample(unfamiliar_pool, n_unfamiliar, "UNFAMILIAR")
+
+        # --- NEW: Tag items with their origin pool ---
+        familiar_list_tagged = [(path, 'familiar_pool') for path in familiar_list_sampled]
+        unfamiliar_list_tagged = [(path, 'unfamiliar_pool') for path in unfamiliar_list_sampled]
         
-        # 4. Combine and shuffle the final list
-        trial_list = familiar_list + unfamiliar_list
+        # 4. Combine and shuffle the final list of tuples
+        trial_list = familiar_list_tagged + unfamiliar_list_tagged
         random.shuffle(trial_list)
         
         # 5. Save this "master plan" to disk immediately

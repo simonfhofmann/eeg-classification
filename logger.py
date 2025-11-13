@@ -31,7 +31,9 @@ def setup_logfile(participant_id, log_dir):
         with open(log_filepath, 'a', newline='') as f:
             if not file_exists:
                 writer = csv.writer(f)
-                header = ["participant_id", "trial_num", "stimulus_name", "familiarity_rating", "liking_rating"]
+                # --- NEW: Added origin_pool column ---
+                header = ["participant_id", "trial_num", "stimulus_name", 
+                          "origin_pool", "familiarity_rating", "liking_rating"]
                 writer.writerow(header)
         return log_filepath
     except IOError as e:

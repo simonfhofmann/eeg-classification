@@ -98,10 +98,10 @@ def main():
     try:
         for trial_index in range(start_index, len(trial_list)):
             current_trial_num = trial_index + 1
-            stimulus_path = trial_list[trial_index]
+            stimulus_path, origin_pool = trial_list[trial_index]
             
             print(f"--- Starting Trial {current_trial_num} of {len(trial_list)} ---")
-            print(f"Stimulus: {stimulus_path}")
+            print(f"Stimulus: {stimulus_path} (From: {origin_pool})") 
 
             # 1. BASELINE
             # Calculate jittered duration
@@ -138,6 +138,7 @@ def main():
             # 4. LOG DATA
             trial_data = [participant_id, current_trial_num, 
                           os.path.basename(stimulus_path), 
+                          origin_pool,  
                           familiarity, liking]
             logger.log_trial(log_filepath, trial_data)
             print(f"Logged responses: Familiarity={familiarity}, Liking={liking}")
