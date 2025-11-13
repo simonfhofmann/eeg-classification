@@ -30,7 +30,7 @@ PARALLEL_PORT_ADDRESS = 0xDC00
 # Jittered baseline used, as seen in your example script.
 # The final duration will be: MEAN + random value between [-JITTER, +JITTER]
 
-BASELINE_DURATION_MEAN = 3.75  # Mean duration of the baseline
+BASELINE_DURATION_MEAN = 1  # Mean duration of the baseline
 BASELINE_DURATION_JITTER = 0.75  # Max +/- jitter (e.g., 3.75 +/- 0.75 -> 3.0s to 4.5s)
 
 # Duration to play each music stimulus
@@ -49,7 +49,7 @@ ITI_DURATION = 1.5
 
 # Number of trials to run. This will be the number of songs
 # randomly selected from the allowed genres.
-N_TRIALS = 2
+N_TRIALS = 10
 
 # Screen settings for Psychopy
 SCREEN_SIZE = [1000, 600]
