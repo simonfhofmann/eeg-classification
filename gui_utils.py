@@ -123,15 +123,21 @@ def get_likert_responses(window, config, marker_handler):
             label.draw()
         window.flip()
         
-        # Check for keypress
-        keys = event.getKeys(keyList=['1', '2', '3', '4', '5', 'escape'])
+# Check for keypress
+        keys = event.getKeys(keyList=['1', '2', '3', '4', '5', 
+                                    'num_1', 'num_2', 'num_3', 'num_4', 'num_5', 
+                                    'escape'])
         
         if 'escape' in keys:
             window.close()
             core.quit()
             
         if keys:
-            familiarity_rating = int(keys[0])
+            key_pressed = keys[0]
+            if key_pressed.startswith('num_'):
+                familiarity_rating = int(key_pressed.split('_')[1])
+            else:
+                familiarity_rating = int(key_pressed)
             
             # Show feedback and wait for 0.5s
             feedback_stim.setText(str(familiarity_rating))
@@ -154,16 +160,22 @@ def get_likert_responses(window, config, marker_handler):
         for label in scale_labels:
             label.draw()
         window.flip()
-        
-        # Check for keypress
-        keys = event.getKeys(keyList=['1', '2', '3', '4', '5', 'escape'])
+
+# Check for keypress
+        keys = event.getKeys(keyList=['1', '2', '3', '4', '5', 
+                                    'num_1', 'num_2', 'num_3', 'num_4', 'num_5', 
+                                    'escape'])
         
         if 'escape' in keys:
             window.close()
             core.quit()
             
         if keys:
-            liking_rating = int(keys[0])
+            key_pressed = keys[0]
+            if key_pressed.startswith('num_'):
+                liking_rating = int(key_pressed.split('_')[1])
+            else:
+                liking_rating = int(key_pressed)
             
             # Show feedback and wait for 0.5s
             feedback_stim.setText(str(liking_rating))
