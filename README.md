@@ -65,3 +65,7 @@ The experiment will then load the stimuli, create the log files, and wait for yo
 
 ```
 ```
+## TODO
+Before playing starts adjust the volume (with sample track)
+
+after rating is given show the rating in an extra screen and ask for confirmation (via enter) if user doesnt confirm start the confirmation 
