@@ -1,0 +1,12 @@
+participant_id,trial_num,stimulus_name,origin_pool,familiarity_rating,liking_rating
+testing2,1,Flowerbed (Official Lyric Video).wav,familiar_pool,1,1
+testing2,2,Schubert09.wav,unfamiliar_pool,0,0
+testing2,3,Architects - Tear Gas Lyrics.wav,familiar_pool,0,0
+testing2,4,Architects - when we were young (lyrics).wav,familiar_pool,1,1
+testing2,5,Tchaikovsky11.wav,unfamiliar_pool,0,0
+testing2,6,Kælan Mikla - Draumadís.wav,familiar_pool,0,0
+testing2,7,Mozart11.wav,unfamiliar_pool,0,0
+testing2,8,Beethoven08.wav,unfamiliar_pool,0,0
+testing2,9,While She Sleeps - Anti social [LYRICS].wav,familiar_pool,0,0
+testing2,10,Hanz04.wav,unfamiliar_pool,0,0
+testing2,11,Tchaikovsky07.wav,unfamiliar_pool,0,0

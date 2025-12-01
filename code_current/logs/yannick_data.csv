@@ -1,0 +1,61 @@
+participant_id,trial_num,stimulus_name,origin_pool,familiarity_rating,liking_rating
+yannick,1,J.I.D - 151 Rum (Lyrics).wav,unfamiliar_pool,0,1
+yannick,2,The Midnight - Days of Thunder (lyrics).wav,unfamiliar_pool,1,5
+yannick,3,KennyHoopla - ESTELLA Ft Travis Barker (Lyrics).wav,unfamiliar_pool,1,5
+yannick,4,Valley - like 1999 (lyrics).wav,unfamiliar_pool,4,2
+yannick,5,Colorado - KOTA The Friend (Lyrics).wav,unfamiliar_pool,4,4
+yannick,6,Saint Motel - ＂Move＂ Lyrics ｜ Official FIFA17 Soundtrack [HQ].wav,unfamiliar_pool,5,4
+yannick,7,Ed Sheeran - Shape of You (Lyrics).wav,familiar_pool,5,1
+yannick,8,"Ariana Grande - thank u, next (Official Lyric Video).wav",familiar_pool,5,1
+yannick,9,Lewis Capaldi - Someone You Loved (Lyrics).wav,familiar_pool,5,4
+yannick,10,DREAMERS - Sweet Disaster (Official Lyric Video).wav,unfamiliar_pool,1,4
+yannick,11,Hozier - Take Me To Church (Lyrics).wav,familiar_pool,5,2
+yannick,12,Eminem - Lose Yourself (Lyrics).wav,familiar_pool,5,5
+yannick,13,The Killers - Mr Brightside (Lyrics).wav,familiar_pool,5,5
+yannick,14,Glass Animals - Heat Waves (Lyrics).wav,familiar_pool,5,5
+yannick,15,Queen – Bohemian Rhapsody (Lyrics).wav,familiar_pool,5,5
+yannick,16,Oliver Tree - Alien Boy [Official Lyric Video].wav,unfamiliar_pool,1,1
+yannick,17,Kenny Mason - Hit (Lyrics).wav,unfamiliar_pool,1,4
+yannick,18,Shake It Off - Taylor Swift (Lyrics) 🎵.wav,familiar_pool,5,4
+yannick,19,Lil Nas X - Old Town Road (Lyrics) ft. Billy Ray Cyrus.wav,familiar_pool,5,2
+yannick,20,The Weeknd - Blinding Lights (Lyrics).wav,familiar_pool,5,2
+yannick,21,Denzel Curry - Walkin (Lyrics).wav,unfamiliar_pool,1,0
+yannick,22,Royal Blood - Typhoons (Lyrics).wav,unfamiliar_pool,0,0
+yannick,23,BTS - Dynamite (Lyrics).wav,familiar_pool,5,2
+yannick,24,Harry Styles - As It Was (Lyrics).wav,familiar_pool,5,1
+yannick,25,"Lady Gaga, Bradley Cooper - Shallow (Lyrics) (A Star Is Born Soundtrack).wav",familiar_pool,5,2
+yannick,26,Aminé - Reel It In (Lyrics).wav,unfamiliar_pool,1,4
+yannick,27,Two Door Cinema Club - What You Know (Lyrics) - ＂I can tell just what you want＂.wav,unfamiliar_pool,5,4
+yannick,28,The Chainsmokers - Closer (Lyrics) ft. Halsey.wav,familiar_pool,5,2
+yannick,29,Coldplay - Viva la Vida (Lyrics).wav,familiar_pool,5,5
+yannick,30,Des Rocs - Let Me Live ⧸ Let Me Die (Lyrics).wav,unfamiliar_pool,1,1
+yannick,31,Miley Cyrus - Flowers (Lyrics).wav,familiar_pool,5,1
+yannick,32,cleopatrick - hometown [lyrics].wav,unfamiliar_pool,1,4
+yannick,33,The Blue Stones ＂Black Holes (Solid Ground)＂ [Official Lyric Video].wav,unfamiliar_pool,1,4
+yannick,34,WELSHLY ARMS LEGENDARY LYRICS.wav,unfamiliar_pool,5,1
+yannick,35,Doja Cat - Kiss Me More (Lyrics) ft. SZA.wav,familiar_pool,5,1
+yannick,36,Britney Spears - Baby One More Time (Lyrics).wav,familiar_pool,5,4
+yannick,37,COIN - Crash My Car (Lyric Video).wav,unfamiliar_pool,1,4
+yannick,38,EARTHGANG - Meditate (feat. J.I.D.) (lyrics).wav,unfamiliar_pool,1,1
+yannick,39,The Band CAMINO - Daphne Blue (Official Lyric Video).wav,unfamiliar_pool,1,2
+yannick,40,Olivia Rodrigo - good 4 u (Lyrics).wav,familiar_pool,5,1
+yannick,41,IDK - Digital [lyrics].wav,unfamiliar_pool,1,1
+yannick,42,DON BROCO - T-Shirt Song (Lyric Video).wav,unfamiliar_pool,1,2
+yannick,43,Imagine Dragons - Believer (Lyrics).wav,familiar_pool,5,4
+yannick,44,Dua Lipa - Levitating (Lyrics).wav,familiar_pool,5,2
+yannick,45,6LACK - PRBLMS [Lyric Video].wav,unfamiliar_pool,1,1
+yannick,46,grandson - Blood ⧸⧸ Water (Lyrics).wav,unfamiliar_pool,5,5
+yannick,47,Avicii - Wake Me Up (Official Lyric Video).wav,familiar_pool,5,4
+yannick,48,middle finger lyrics.wav,unfamiliar_pool,1,1
+yannick,49,JUNGLE - KEEP MOVING (Lyrics).wav,unfamiliar_pool,5,4
+yannick,50,"Shawn Mendes, Camila Cabello - Señorita (Lyrics) Letra.wav",familiar_pool,5,2
+yannick,51,Tones and I - Dance Monkey (Lyrics).wav,familiar_pool,5,1
+yannick,52,Nightly - The Movies (Lyric video).wav,unfamiliar_pool,1,1
+yannick,53,"Post Malone, Swae Lee - Sunflower (Lyrics).wav",familiar_pool,5,4
+yannick,54,Justin Bieber - Sorry (Lyrics).wav,familiar_pool,5,1
+yannick,55,One Direction - What Makes You Beautiful(Lyrics)🎵.wav,familiar_pool,5,2
+yannick,56,Adele - Hello (Lyrics).wav,familiar_pool,5,1
+yannick,57,YUNGBLUD - Parents (Lyrics ⧸ Lyric Video).wav,unfamiliar_pool,1,2
+yannick,58,photosynthesis ｜ saba.wav,unfamiliar_pool,1,4
+yannick,59,Barns Courtney - Glitter & Gold (Lyrics).wav,unfamiliar_pool,1,4
+yannick,60,Mark Ronson - Uptown Funk (Lyrics) ft. Bruno Mars.wav,familiar_pool,5,5

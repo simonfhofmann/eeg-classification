@@ -1,0 +1,1006 @@
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+Sending Marker 20
+Logged responses: Familiarity=0, Liking=0
+Sending Marker 6
+--- Starting Trial 13 of 30 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/testing/Yanni13.wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 20
+Logged responses: Familiarity=0, Liking=0
+Sending Marker 6
+--- Starting Trial 14 of 30 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/testing/Chopin02.wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 20
+Logged responses: Familiarity=0, Liking=0
+Sending Marker 6
+--- Starting Trial 15 of 30 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/testing/Vangelis06.wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 20
+Logged responses: Familiarity=0, Liking=0
+Sending Marker 6
+--- Starting Trial 16 of 30 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/testing/Tchaikovsky01.wav (From: unfamiliar_pool)
+Sending Marker 1
+User pressed 'escape'. Quitting.
+1.5638  WARNING         We strongly recommend you activate the PTB sound engine in PsychoPy prefs as the preferred audio engine. Its timing is vastly superior. Your prefs are currently set to use ['sounddevice', 'PTB', 'pyo', 'pygame'] (in that order).
+9.9171  WARNING         Monitor specification not found. Creating a temporary one...
+Sending Marker 255
+Experiment finished.
+Traceback (most recent call last):
+  File "run_experiment.py", line 113, in main
+    gui_utils.show_fixation(window, baseline_duration)
+  File "/home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/gui_utils.py", line 57, in show_fixation
+    core.quit()
+  File "/home/robotbci/anaconda3/lib/python3.8/site-packages/psychopy/core.py", line 85, in quit
+    sys.exit(0)  # quits the python session entirely
+SystemExit: 0
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "run_experiment.py", line 170, in <module>
+    main()
+  File "run_experiment.py", line 163, in main
+    gui_utils.show_message(window, config.END_EXPERIMENT_TEXT, wait_for_key=True)
+  File "/home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/gui_utils.py", line 31, in show_message
+    window.flip()
+  File "/home/robotbci/anaconda3/lib/python3.8/site-packages/psychopy/visual/window.py", line 1151, in flip
+    self.backend.swapBuffers(flipThisFrame)
+  File "/home/robotbci/anaconda3/lib/python3.8/site-packages/psychopy/visual/backends/pygletbackend.py", line 377, in swapBuffers
+    self.winHandle.dispatch_events()
+  File "/home/robotbci/anaconda3/lib/python3.8/site-packages/pyglet/window/xlib/__init__.py", line 855, in dispatch_events
+    while xlib.XCheckWindowEvent(_x_display, _window, 0x1ffffff, byref(e)):
+ctypes.ArgumentError: argument 2: <class 'TypeError'>: wrong type
+(base) robotbci@tomm-devel3:~/Documents/Alireza Malekmohammadi/eeg_classification/code$ python run_experiment.py
+pygame 2.0.2 (SDL 2.0.16, Python 3.8.8)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Enter Participant ID (e.g., sub-001): yannick
+------------------------------
+Available genres in '/home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli':
+  popular_normalized, Yannick_Saeckl_normalized, testing, lesser_known_normalized
+------------------------------
+Enter FAMILIAR genres (comma-separated): popular
+Enter UNFAMILIAR genres (comma-separated): lesser_known_normalized
+Familiar Pool: ['popular']
+Unfamiliar Pool: ['lesser_known_normalized']
+Initializing experiment for: yannick
+No stimulus order file found. Creating a new one...
+Warning: Genre folder 'popular' not found. Skipping.
+Warning: No .wav files found for genres: ['popular']
+FATAL ERROR during setup: Cannot sample 30 items: The FAMILIAR pool is empty.
+Experiment cannot continue. Exiting.
+1.5502  WARNING         We strongly recommend you activate the PTB sound engine in PsychoPy prefs as the preferred audio engine. Its timing is vastly superior. Your prefs are currently set to use ['sounddevice', 'PTB', 'pyo', 'pygame'] (in that order).
+29.2889         WARNING         Monitor specification not found. Creating a temporary one...
+(base) robotbci@tomm-devel3:~/Documents/Alireza Malekmohammadi/eeg_classification/code$ python run_experiment.py
+pygame 2.0.2 (SDL 2.0.16, Python 3.8.8)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Enter Participant ID (e.g., sub-001): yannick
+------------------------------
+Available genres in '/home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli':
+  popular_normalized, Yannick_Saeckl_normalized, testing, lesser_known_normalized
+------------------------------
+Enter FAMILIAR genres (comma-separated): popular_normalized
+Enter UNFAMILIAR genres (comma-separated): lesser_known_normalized
+Familiar Pool: ['popular_normalized']
+Unfamiliar Pool: ['lesser_known_normalized']
+Initializing experiment for: yannick
+No stimulus order file found. Creating a new one...
+New stimulus order saved to: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/logs/yannick_stimulus_order.csv
+Sending Marker 254
+--- Starting Trial 1 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/J.I.D - 151 Rum (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+Sending Marker 3
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+Sending Marker 21
+Logged responses: Familiarity=0, Liking=1
+Sending Marker 6
+--- Starting Trial 2 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/The Midnight - Days of Thunder (lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 35
+Logged responses: Familiarity=1, Liking=5
+Sending Marker 6
+--- Starting Trial 3 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/KennyHoopla - ESTELLA Ft Travis Barker (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 35
+Logged responses: Familiarity=1, Liking=5
+Sending Marker 6
+--- Starting Trial 4 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Valley - like 1999 (lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 62
+Logged responses: Familiarity=4, Liking=2
+Sending Marker 6
+--- Starting Trial 5 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Colorado - KOTA The Friend (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 64
+Logged responses: Familiarity=4, Liking=4
+Sending Marker 6
+--- Starting Trial 6 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Saint Motel - ＂Move＂ Lyrics ｜ Official FIFA17 Soundtrack [HQ].wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 74
+Logged responses: Familiarity=5, Liking=4
+Sending Marker 6
+--- Starting Trial 7 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Ed Sheeran - Shape of You (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 71
+Logged responses: Familiarity=5, Liking=1
+Sending Marker 6
+--- Starting Trial 8 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Ariana Grande - thank u, next (Official Lyric Video).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 71
+Logged responses: Familiarity=5, Liking=1
+Sending Marker 6
+--- Starting Trial 9 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Lewis Capaldi - Someone You Loved (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 74
+Logged responses: Familiarity=5, Liking=4
+Sending Marker 6
+--- Starting Trial 10 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/DREAMERS - Sweet Disaster (Official Lyric Video).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 34
+Logged responses: Familiarity=1, Liking=4
+Sending Marker 6
+--- Starting Trial 11 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Hozier - Take Me To Church (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 72
+Logged responses: Familiarity=5, Liking=2
+Sending Marker 6
+--- Starting Trial 12 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Eminem - Lose Yourself (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 75
+Logged responses: Familiarity=5, Liking=5
+Sending Marker 6
+--- Starting Trial 13 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/The Killers - Mr Brightside (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 75
+Logged responses: Familiarity=5, Liking=5
+Sending Marker 6
+--- Starting Trial 14 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Glass Animals - Heat Waves (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 75
+Logged responses: Familiarity=5, Liking=5
+Sending Marker 6
+--- Starting Trial 15 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Queen – Bohemian Rhapsody (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 75
+Logged responses: Familiarity=5, Liking=5
+Sending Marker 6
+--- Starting Trial 16 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Oliver Tree - Alien Boy [Official Lyric Video].wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 31
+Logged responses: Familiarity=1, Liking=1
+Sending Marker 6
+--- Starting Trial 17 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Kenny Mason - Hit (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 34
+Logged responses: Familiarity=1, Liking=4
+Sending Marker 6
+--- Starting Trial 18 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Shake It Off - Taylor Swift (Lyrics) 🎵.wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 74
+Logged responses: Familiarity=5, Liking=4
+Sending Marker 6
+--- Starting Trial 19 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Lil Nas X - Old Town Road (Lyrics) ft. Billy Ray Cyrus.wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 72
+Logged responses: Familiarity=5, Liking=2
+Sending Marker 6
+--- Starting Trial 20 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/The Weeknd - Blinding Lights (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 72
+Logged responses: Familiarity=5, Liking=2
+Sending Marker 6
+--- Starting Trial 21 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Denzel Curry - Walkin (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 30
+Logged responses: Familiarity=1, Liking=0
+Sending Marker 6
+--- Starting Trial 22 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Royal Blood - Typhoons (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 20
+Logged responses: Familiarity=0, Liking=0
+Sending Marker 6
+--- Starting Trial 23 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/BTS - Dynamite (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 72
+Logged responses: Familiarity=5, Liking=2
+Sending Marker 6
+--- Starting Trial 24 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Harry Styles - As It Was (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 71
+Logged responses: Familiarity=5, Liking=1
+Sending Marker 6
+--- Starting Trial 25 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Lady Gaga, Bradley Cooper - Shallow (Lyrics) (A Star Is Born Soundtrack).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 72
+Logged responses: Familiarity=5, Liking=2
+Sending Marker 6
+--- Starting Trial 26 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Aminé - Reel It In (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 34
+Logged responses: Familiarity=1, Liking=4
+Sending Marker 6
+--- Starting Trial 27 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Two Door Cinema Club - What You Know (Lyrics) - ＂I can tell just what you want＂.wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 74
+Logged responses: Familiarity=5, Liking=4
+Sending Marker 6
+--- Starting Trial 28 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/The Chainsmokers - Closer (Lyrics) ft. Halsey.wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 72
+Logged responses: Familiarity=5, Liking=2
+Sending Marker 6
+--- Starting Trial 29 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Coldplay - Viva la Vida (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 75
+Logged responses: Familiarity=5, Liking=5
+Sending Marker 6
+--- Starting Trial 30 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Des Rocs - Let Me Live ⧸ Let Me Die (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Exception ignored in: <generator object ZipRunIterator.ranges at 0x7f9a49b79820>
+Traceback (most recent call last):
+Segmentation fault (core dumped)
+(base) robotbci@tomm-devel3:~/Documents/Alireza Malekmohammadi/eeg_classification/code$ python run_experiment.py
+pygame 2.0.2 (SDL 2.0.16, Python 3.8.8)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Enter Participant ID (e.g., sub-001): yannick
+------------------------------
+Available genres in '/home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli':
+  popular_normalized, Yannick_Saeckl_normalized, testing, lesser_known_normalized
+------------------------------
+Enter FAMILIAR genres (comma-separated): popular_normalized
+Enter UNFAMILIAR genres (comma-separated): lesser_known_normalized
+Familiar Pool: ['popular_normalized']
+Unfamiliar Pool: ['lesser_known_normalized']
+Initializing experiment for: yannick
+Found existing stimulus order file. Loading: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/logs/yannick_stimulus_order.csv
+Sending Marker 254
+Resuming experiment. 29 trials already completed.
+--- Starting Trial 30 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Des Rocs - Let Me Live ⧸ Let Me Die (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:7963:(snd_pcm_recover) underrun occurred
+Sending Marker 3
+Sending Marker 31
+Logged responses: Familiarity=1, Liking=1
+Sending Marker 6
+--- Starting Trial 31 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Miley Cyrus - Flowers (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 71
+Logged responses: Familiarity=5, Liking=1
+Sending Marker 6
+--- Starting Trial 32 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/cleopatrick - hometown [lyrics].wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 34
+Logged responses: Familiarity=1, Liking=4
+Sending Marker 6
+--- Starting Trial 33 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/The Blue Stones ＂Black Holes (Solid Ground)＂ [Official Lyric Video].wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 34
+Logged responses: Familiarity=1, Liking=4
+Sending Marker 6
+--- Starting Trial 34 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/WELSHLY ARMS LEGENDARY LYRICS.wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 71
+Logged responses: Familiarity=5, Liking=1
+Sending Marker 6
+--- Starting Trial 35 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Doja Cat - Kiss Me More (Lyrics) ft. SZA.wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 71
+Logged responses: Familiarity=5, Liking=1
+Sending Marker 6
+--- Starting Trial 36 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Britney Spears - Baby One More Time (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 74
+Logged responses: Familiarity=5, Liking=4
+Sending Marker 6
+--- Starting Trial 37 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/COIN - Crash My Car (Lyric Video).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 34
+Logged responses: Familiarity=1, Liking=4
+Sending Marker 6
+--- Starting Trial 38 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/EARTHGANG - Meditate (feat. J.I.D.) (lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 31
+Logged responses: Familiarity=1, Liking=1
+Sending Marker 6
+--- Starting Trial 39 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/The Band CAMINO - Daphne Blue (Official Lyric Video).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 32
+Logged responses: Familiarity=1, Liking=2
+Sending Marker 6
+--- Starting Trial 40 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Olivia Rodrigo - good 4 u (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 71
+Logged responses: Familiarity=5, Liking=1
+Sending Marker 6
+--- Starting Trial 41 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/IDK - Digital [lyrics].wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 31
+Logged responses: Familiarity=1, Liking=1
+Sending Marker 6
+--- Starting Trial 42 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/DON BROCO - T-Shirt Song (Lyric Video).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 32
+Logged responses: Familiarity=1, Liking=2
+Sending Marker 6
+--- Starting Trial 43 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Imagine Dragons - Believer (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 74
+Logged responses: Familiarity=5, Liking=4
+Sending Marker 6
+--- Starting Trial 44 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Dua Lipa - Levitating (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 72
+Logged responses: Familiarity=5, Liking=2
+Sending Marker 6
+--- Starting Trial 45 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/6LACK - PRBLMS [Lyric Video].wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 31
+Logged responses: Familiarity=1, Liking=1
+Sending Marker 6
+--- Starting Trial 46 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/grandson - Blood ⧸⧸ Water (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 75
+Logged responses: Familiarity=5, Liking=5
+Sending Marker 6
+--- Starting Trial 47 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Avicii - Wake Me Up (Official Lyric Video).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 74
+Logged responses: Familiarity=5, Liking=4
+Sending Marker 6
+--- Starting Trial 48 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/middle finger lyrics.wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 31
+Logged responses: Familiarity=1, Liking=1
+Sending Marker 6
+--- Starting Trial 49 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/JUNGLE - KEEP MOVING (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 74
+Logged responses: Familiarity=5, Liking=4
+Sending Marker 6
+--- Starting Trial 50 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Shawn Mendes, Camila Cabello - Señorita (Lyrics) Letra.wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 72
+Logged responses: Familiarity=5, Liking=2
+Sending Marker 6
+--- Starting Trial 51 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Tones and I - Dance Monkey (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 71
+Logged responses: Familiarity=5, Liking=1
+Sending Marker 6
+--- Starting Trial 52 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Nightly - The Movies (Lyric video).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 31
+Logged responses: Familiarity=1, Liking=1
+Sending Marker 6
+--- Starting Trial 53 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Post Malone, Swae Lee - Sunflower (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 74
+Logged responses: Familiarity=5, Liking=4
+Sending Marker 6
+--- Starting Trial 54 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Justin Bieber - Sorry (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 71
+Logged responses: Familiarity=5, Liking=1
+Sending Marker 6
+--- Starting Trial 55 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/One Direction - What Makes You Beautiful(Lyrics)🎵.wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 72
+Logged responses: Familiarity=5, Liking=2
+Sending Marker 6
+--- Starting Trial 56 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Adele - Hello (Lyrics).wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 71
+Logged responses: Familiarity=5, Liking=1
+Sending Marker 6
+--- Starting Trial 57 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/YUNGBLUD - Parents (Lyrics ⧸ Lyric Video).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 32
+Logged responses: Familiarity=1, Liking=2
+Sending Marker 6
+--- Starting Trial 58 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/photosynthesis ｜ saba.wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 34
+Logged responses: Familiarity=1, Liking=4
+Sending Marker 6
+--- Starting Trial 59 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/lesser_known_normalized/Barns Courtney - Glitter & Gold (Lyrics).wav (From: unfamiliar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 34
+Logged responses: Familiarity=1, Liking=4
+Sending Marker 6
+--- Starting Trial 60 of 60 ---
+Stimulus: /home/robotbci/Documents/Alireza Malekmohammadi/eeg_classification/code/stimuli/popular_normalized/Mark Ronson - Uptown Funk (Lyrics) ft. Bruno Mars.wav (From: familiar_pool)
+Sending Marker 1
+Sending Marker 2
+Sending Marker 3
+Sending Marker 75
+Logged responses: Familiarity=5, Liking=5
+Sending Marker 6
+Sending Marker 255
+Experiment finished.
+1.5366  WARNING         We strongly recommend you activate the PTB sound engine in PsychoPy prefs as the preferred audio engine. Its timing is vastly superior. Your prefs are currently set to use ['sounddevice', 'PTB', 'pyo', 'pygame'] (in that order).
+51.7621         WARNING         Monitor specification not found. Creating a temporary one...
+(base) robotbci@tomm-devel3:~/Documents/Alireza Malekmohammadi/eeg_classification/code$ ^C
+(base) robotbci@tomm-devel3:~/Documents/Alireza Malekmohammadi/eeg_classification/code$ ^C
+(base) robotbci@tomm-devel3:~/Documents/Alireza Malekmohammadi/eeg_classification/code$ 

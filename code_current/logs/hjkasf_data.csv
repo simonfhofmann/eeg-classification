@@ -1,0 +1,16 @@
+participant_id,trial_num,stimulus_name,origin_pool,familiarity_rating,liking_rating
+hjkasf,1,Vivaldi06.wav,familiar_pool,0,0
+hjkasf,2,Yanni19.wav,unfamiliar_pool,0,0
+hjkasf,3,Vivaldi01.wav,familiar_pool,0,1
+hjkasf,4,Vangelis01.wav,familiar_pool,0,0
+hjkasf,5,Chopin14.wav,familiar_pool,0,0
+hjkasf,6,Schubert09.wav,familiar_pool,0,0
+hjkasf,7,Tchaikovsky08.wav,unfamiliar_pool,0,0
+hjkasf,8,John Williams01.wav,unfamiliar_pool,0,0
+hjkasf,9,Tchaikovsky11.wav,familiar_pool,0,0
+hjkasf,10,Dvorak01.wav,unfamiliar_pool,0,0
+hjkasf,11,Mozart07.wav,familiar_pool,0,0
+hjkasf,12,Hanz06.wav,unfamiliar_pool,0,0
+hjkasf,13,Yanni13.wav,unfamiliar_pool,0,0
+hjkasf,14,Chopin02.wav,familiar_pool,0,0
+hjkasf,15,Vangelis06.wav,familiar_pool,0,0
