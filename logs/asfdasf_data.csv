@@ -1,0 +1,6 @@
+participant_id,trial_num,stimulus_name,origin_pool,familiarity_rating,liking_rating
+asfdasf,1,Grieg01.wav,familiar_pool,5,5
+asfdasf,2,Mozart07.wav,familiar_pool,5,5
+asfdasf,3,Tchaikovsky12.wav,familiar_pool,5,5
+asfdasf,4,Mozart06.wav,unfamiliar_pool,5,5
+asfdasf,5,Strauss01.wav,unfamiliar_pool,5,5

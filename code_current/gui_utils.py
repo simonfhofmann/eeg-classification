@@ -14,7 +14,7 @@ def setup_window(config):
         size=config.SCREEN_SIZE,
         fullscr=config.SCREEN_FULLSCREEN,
         color=config.SCREEN_COLOR,
-        units="norm"  # Use 'norm' for easy positioning (-1 to +1)
+        units="norm"
     )
 
 def show_message(window, text, wait_for_key=True):
@@ -75,43 +75,104 @@ def play_stimulus(filepath):
         print(f"Details: {e}")
         return None
 
-# In gui_utils.py
+def offer_break(window, elapsed_minutes, marker_handler, config):
+    """
+    Offers the participant a break and waits for their decision.
+    Sends break markers if participant accepts.
+    
+    Args:
+        window: The Psychopy window
+        elapsed_minutes: How many minutes have elapsed
+        marker_handler: The marker handler object
+        config: The config module
+        
+    Returns:
+        bool: True if participant took a break, False otherwise
+    """
+    from psychopy import event
+    
+    message = visual.TextStim(
+        window, 
+        text=f"You have been working for about {elapsed_minutes} minutes.\n\n"
+             "Would you like to take a break?\n\n"
+             "Press SPACE to take a break\n"
+             "Press any other key to continue",
+        height=0.08
+    )
+    
+    message.draw()
+    window.flip()
+    
+    keys = event.waitKeys()
+    
+    if 'escape' in keys:
+        window.close()
+        core.quit()
+    
+    if 'space' in keys:
+        # Participant chose to take a break
+        marker_handler.send_marker(config.MARKERS["BREAK_START"])
+        
+        # Show break message
+        break_msg = visual.TextStim(window, text=config.BREAK_TEXT, height=0.08)
+        break_msg.draw()
+        window.flip()
+        event.waitKeys()
+        
+        marker_handler.send_marker(config.MARKERS["BREAK_END"])
+        return True
+    
+    return False
 
-def get_likert_responses(window, config, marker_handler):
+def get_likert_responses(window, config):
     """
     Displays two sequential Likert scale questions (Familiarity, then Liking)
     and collects a 1-5 keypress for each within a fixed time window.
+    No markers are sent - responses are only logged to CSV.
     
     Returns:
         (int, int): A tuple of (familiarity_rating, liking_rating).
-                    Returns (0) for any question the user ran out of time on.
+                    Returns (0, 0) if BOTH questions time out.
     """
     
-    # --- 1. Setup Stimuli (Text and Scales) ---
-    fam_question = visual.TextStim(window, 
-                                   text=config.FAMILIARITY_QUESTION,
-                                   pos=(0, 0.3), height=0.12)
-    lik_question = visual.TextStim(window, 
-                                   text=config.LIKING_QUESTION,
-                                   pos=(0, 0.3), height=0.12)
+    # --- 1. Setup Stimuli ---
+    fam_question = visual.TextStim(
+        window, 
+        text=config.FAMILIARITY_QUESTION,
+        pos=(0, 0.3), 
+        height=0.12
+    )
+    lik_question = visual.TextStim(
+        window, 
+        text=config.LIKING_QUESTION,
+        pos=(0, 0.3), 
+        height=0.12
+    )
     
-    # Create scale labels (we'll reuse this for both questions)
+    # Create scale labels
     scale_labels = []
-    positions = [-0.6, -0.3, 0, 0.3, 0.6] # X-positions for 1, 2, 3, 4, 5
     for i, label in enumerate(config.LIKERT_LABELS):
-        scale_labels.append(visual.TextStim(window, text=label,
-                             pos=(positions[i], 0.0), height=0.08))
+        scale_labels.append(visual.TextStim(
+            window, 
+            text=label,
+            pos=(config.LIKERT_SCALE_POSITIONS[i], 0.0), 
+            height=0.08
+        ))
 
     # Visual feedback for selected answer
-    feedback_stim = visual.TextStim(window, text="", color='cyan', 
-                                    pos=(0, -0.3), height=0.15)
+    feedback_stim = visual.TextStim(
+        window, 
+        text="", 
+        color='cyan', 
+        pos=(0, -0.3), 
+        height=0.15
+    )
 
     # --- 2. Initialize Variables ---
     timer = core.Clock()
     familiarity_rating = 0
     liking_rating = 0
     
-    # Clear any keys pressed before the window appeared
     event.clearEvents() 
 
     # --- 3. Run Familiarity Question Loop ---
@@ -123,10 +184,10 @@ def get_likert_responses(window, config, marker_handler):
             label.draw()
         window.flip()
         
-# Check for keypress
+        # Check for keypress
         keys = event.getKeys(keyList=['1', '2', '3', '4', '5', 
-                                    'num_1', 'num_2', 'num_3', 'num_4', 'num_5', 
-                                    'escape'])
+                                      'num_1', 'num_2', 'num_3', 'num_4', 'num_5', 
+                                      'escape'])
         
         if 'escape' in keys:
             window.close()
@@ -139,20 +200,18 @@ def get_likert_responses(window, config, marker_handler):
             else:
                 familiarity_rating = int(key_pressed)
             
-            # Show feedback and wait for 0.5s
+            # Show feedback
             feedback_stim.setText(str(familiarity_rating))
             fam_question.draw()
             for label in scale_labels:
                 label.draw()
             feedback_stim.draw()
             window.flip()
-            core.wait(0.5) # Show feedback
-            break # Exit familiarity loop
-            
-    # If loop finished without a response, rating remains 0 (timeout)
+            core.wait(config.FEEDBACK_DISPLAY_DURATION)
+            break
 
     # --- 4. Run Liking Question Loop ---
-    event.clearEvents() # Clear keys from first question
+    event.clearEvents()
     timer.reset()
     while timer.getTime() < config.LIKING_RESPONSE_DURATION:
         # Draw question and scale
@@ -161,10 +220,10 @@ def get_likert_responses(window, config, marker_handler):
             label.draw()
         window.flip()
 
-# Check for keypress
+        # Check for keypress
         keys = event.getKeys(keyList=['1', '2', '3', '4', '5', 
-                                    'num_1', 'num_2', 'num_3', 'num_4', 'num_5', 
-                                    'escape'])
+                                      'num_1', 'num_2', 'num_3', 'num_4', 'num_5', 
+                                      'escape'])
         
         if 'escape' in keys:
             window.close()
@@ -177,26 +236,14 @@ def get_likert_responses(window, config, marker_handler):
             else:
                 liking_rating = int(key_pressed)
             
-            # Show feedback and wait for 0.5s
+            # Show feedback
             feedback_stim.setText(str(liking_rating))
             lik_question.draw()
             for label in scale_labels:
                 label.draw()
             feedback_stim.draw()
             window.flip()
-            core.wait(0.5) # Show feedback
-            break # Exit liking loop
-
-    # --- 5. Send Markers and Return ---
-    # We still send *one* marker that encodes both responses
-    # If a question timed out, its value is 0
-    
-    response_code = (config.MARKERS["RESPONSE_ID_BASE"] + 
-                    (familiarity_rating * 10) + 
-                    liking_rating)
-    marker_handler.send_marker(response_code)
-    
-    # Send the generic "response made" marker
-    #marker_handler.send_marker(config.MARKERS["RESPONSE_MADE"])
+            core.wait(config.FEEDBACK_DISPLAY_DURATION)
+            break
 
     return (familiarity_rating, liking_rating)

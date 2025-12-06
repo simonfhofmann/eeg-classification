@@ -2,12 +2,11 @@
 # eeg_handler.py
 #
 # Manages the hardware connection for sending EEG event markers
-# via the parallel port.
+# via the parallel port (Linux only for live mode).
 # ----------------------------------------------------------------------
 
 from psychopy import parallel
-import time
-import config  # <-- 1. IMPORT CONFIG
+import config
 
 class MarkerHandler:
     
@@ -29,49 +28,52 @@ class MarkerHandler:
         self.port = None
         self.port_address = port_address
 
-        # --- 2. CHECK THE DEBUG FLAG ---
         if config.DEBUG_MODE:
             # --- DEBUG MODE ---
             self.port = self._DummyPort()
             print("-------------------------------------------------")
-            print("---            DEBUG MODE ACTIVE            ---")
+            print("---            DEBUG MODE ACTIVE              ---")
             print("--- No parallel port connection will be made. ---")
             print("--- Markers will be printed to the console.   ---")
             print("-------------------------------------------------")
         else:
-            # --- LIVE MODE ---
-            # try:
-            #     self.port = parallel.ParallelPort(address=self.port_address)
-            #     # Send a '0' marker immediately to clear the port
-            #     self.port.setData(0)
-            #     print(f"Successfully connected to parallel port at {hex(self.port_address)}")
-            # except Exception as e:
-            #     print(f"CRITICAL ERROR: Failed to connect to parallel port at {hex(self.port_address)}.")
-            #     print("Check port address. Is the 'inpoutx64.dll' library installed?")
-            #     print(f"Details: {e}")
-            #     raise
-            #self.port = parallel.ParallelPort(address=self.port_address)
-            self.port = parallel.ParallelPort('/dev/parport1')
-            self.port.setData(0)
-            
+            # --- LIVE MODE (Linux) ---
+            try:
+                self.port = parallel.ParallelPort(address=self.port_address)
+                self.port.setData(0)
+                print(f"Successfully connected to parallel port at {self.port_address}")
+            except Exception as e:
+                print(f"CRITICAL ERROR: Failed to connect to parallel port at {self.port_address}.")
+                print("Possible causes:")
+                print("  1. Port address is incorrect (check with 'ls /dev/parport*')")
+                print("  2. Insufficient permissions (try: sudo chmod 666 /dev/parport*)")
+                print("  3. Parallel port driver not loaded (try: sudo modprobe parport_pc)")
+                print(f"Details: {e}")
+                raise
 
     def send_marker(self, value):
         """
         Sends an integer marker to the EEG amplifier (or dummy port).
+        
+        Args:
+            value (int): Marker value to send (1-255)
         """
         if self.port is None:
             print(f"Error: Port not initialized. Cannot send marker {value}.")
             return
+        
+        # Validate marker value
+        if not isinstance(value, int) or value < 0 or value > 255:
+            print(f"Warning: Invalid marker value {value}. Must be integer 0-255.")
+            return
             
         try:
-            # --- 3. SEND MARKER (conditionally) ---
             if config.DEBUG_MODE:
                 self.port.setData(value)
             else:
-                print(f"Sending Marker {value}")
+                print(f"Sending Marker: {value}")
                 self.port.setData(value)
-                #time.sleep(0.05) # Hardware pulse duration
-                #self.port.setData(0) # Reset port
+                
         except Exception as e:
             print(f"Error sending marker {value}")
             print(f"Details: {e}")
