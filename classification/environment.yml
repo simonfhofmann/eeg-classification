@@ -1,0 +1,40 @@
+name: eeg_classification
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  # Python version (3.11 for best performance + compatibility)
+  - python=3.11
+
+  # Core scientific computing
+  - numpy>=1.24
+  - scipy>=1.10
+  - pandas>=2.0
+
+  # Machine learning
+  - scikit-learn>=1.3
+
+  # Data loading (for MATLAB v7.3 HDF5 files)
+  - h5py>=3.8
+
+  # Visualization
+  - matplotlib>=3.7
+  - seaborn>=0.12
+
+  # Deep learning (PyTorch)
+  # For GPU support: replace 'cpuonly' with 'pytorch-cuda=12.1' (or your CUDA version)
+  - pytorch>=2.0
+  - cpuonly
+
+  # Jupyter for notebooks
+  - jupyter
+  - jupyterlab
+  - ipykernel
+
+  # Development tools
+  - pip
+
+  - pip:
+    # MNE for additional EEG processing (optional)
+    - mne>=1.6

@@ -1,0 +1,30 @@
+# EEG Classification - Requirements
+# Install with: pip install -r requirements.txt
+
+# Core scientific computing
+numpy>=1.24
+scipy>=1.10
+pandas>=2.0
+
+# Machine learning
+scikit-learn>=1.3
+
+# Data loading (MATLAB v7.3 HDF5 files)
+h5py>=3.8
+
+# Visualization
+matplotlib>=3.7
+seaborn>=0.12
+
+# Deep learning (PyTorch)
+# For CPU only:
+torch>=2.0
+# For GPU (CUDA 12.1): pip install torch --index-url https://download.pytorch.org/whl/cu121
+
+# Jupyter notebooks
+jupyter
+jupyterlab
+ipykernel
+
+# EEG processing (optional)
+mne>=1.6
