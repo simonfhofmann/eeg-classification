@@ -31,7 +31,7 @@ LOGS_DIR = PROJECT_ROOT / "logs"
 SAMPLING_RATE = 500  # Hz
 
 # Channel count (after removing EOG, HR, GSR channels in MATLAB preprocessing)
-N_CHANNELS = 30  
+N_CHANNELS = 30
 
 # Stimulus duration from experiment
 STIMULUS_DURATION = 32.0  # seconds
@@ -44,6 +44,15 @@ FREQ_BANDS = {
     "beta": (13, 30),
     "gamma": (30, 60),
 }
+
+# --------------------------
+# 2.1 MAT FILE STRUCTURE
+# --------------------------
+# Variable name containing EEG data in .mat file
+MAT_VARIABLE_NAME = "cellArray"
+
+# Data is stored in microvolts, convert to volts for MNE
+DATA_SCALE_FACTOR = 1e-6
 
 # --------------------------
 # 3. EXPERIMENT MARKERS
@@ -101,8 +110,13 @@ DEFAULT_TARGET = "familiarity_binary"
 # --------------------------
 # 5. PREPROCESSING SETTINGS
 # --------------------------
-# Epoch time window (relative to stimulus onset, in seconds)
-EPOCH_TMIN = 0.0    # Start of epoch relative to stimulus
+# Epoch time window as stored in .mat file (relative to stimulus onset)
+# Data includes 3s pre-stimulus baseline
+RAW_EPOCH_TMIN = -3.0   # Start of epoch (baseline start)
+RAW_EPOCH_TMAX = 32.0   # End of epoch (stimulus end)
+
+# Epoch time window for model input (after cropping)
+EPOCH_TMIN = 0.1    # Start slightly after stimulus onset (to avoid hardware artifact)
 EPOCH_TMAX = 32.0   # End of epoch (stimulus duration)
 
 # Baseline period (from marker reference: ~8 seconds jittered)
@@ -110,8 +124,9 @@ BASELINE_DURATION_MEAN = 8.0
 BASELINE_DURATION_JITTER = 0.75
 
 # Baseline correction window (relative to stimulus onset)
-BASELINE_CORRECTION_TMIN = -0.2
-BASELINE_CORRECTION_TMAX = 0.0
+# Using pre-stimulus period, stopping before stimulus onset to avoid artifact
+BASELINE_CORRECTION_TMIN = -3.0
+BASELINE_CORRECTION_TMAX = -0.1
 
 # --------------------------
 # 6. CROSS-VALIDATION

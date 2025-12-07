@@ -9,11 +9,17 @@ import pandas as pd
 from pathlib import Path
 from scipy.io import loadmat
 import h5py
+import mne
 from typing import Dict, Tuple, Optional, Union, List
 
 import sys
 sys.path.append(str(Path(__file__).parent.parent))
-from config import LOGS_DIR, MAT_DATA_DIR, MARKERS
+from config import (
+    LOGS_DIR, MAT_DATA_DIR, MARKERS, SAMPLING_RATE,
+    MAT_VARIABLE_NAME, DATA_SCALE_FACTOR,
+    RAW_EPOCH_TMIN, BASELINE_CORRECTION_TMIN, BASELINE_CORRECTION_TMAX,
+    EPOCH_TMIN, EPOCH_TMAX
+)
 
 
 def load_mat_file(filepath: Union[str, Path], variable_name: Optional[str] = None) -> Dict:
@@ -95,6 +101,154 @@ def _h5py_to_numpy(item) -> Union[np.ndarray, Dict, str]:
         return item
 
 
+def load_eeg_from_mat(filepath: Union[str, Path]) -> Dict:
+    """
+    Load and parse EEG data from preprocessed .mat file.
+
+    Handles the specific structure from EEGLAB preprocessing:
+    - cellArray contains the main struct with fields: data, srate, xmin, chanlocs
+    - data shape: (channels, timepoints, trials)
+    - Channel names are nested in chanlocs struct
+
+    Args:
+        filepath: Path to the .mat file
+
+    Returns:
+        Dictionary containing:
+            - 'data': numpy array (trials, channels, timepoints)
+            - 'sfreq': sampling frequency (int)
+            - 'tmin': epoch start time (float)
+            - 'ch_names': list of channel names
+    """
+    filepath = Path(filepath)
+    mat = loadmat(str(filepath))
+
+    # Get the main struct from cellArray
+    main_struct = mat[MAT_VARIABLE_NAME][0, 0]
+
+    # Extract raw data - shape: (channels, timepoints, trials)
+    raw_data = main_struct['data'][0, 0]
+
+    # Extract sampling rate
+    sfreq = main_struct['srate'][0, 0].item()
+
+    # Extract epoch start time (tmin)
+    tmin = main_struct['xmin'][0, 0].item()
+
+    # Extract and clean channel names
+    chan_structs = main_struct['chanlocs'][0, 0]
+    raw_labels = [ch['labels'][0] for ch in chan_structs[0]]
+
+    ch_names = []
+    for label in raw_labels:
+        if isinstance(label, np.ndarray):
+            label = label.item()
+        if isinstance(label, np.ndarray):
+            label = label.item()
+        ch_names.append(str(label))
+
+    # Transpose to (trials, channels, timepoints) for MNE compatibility
+    data = np.transpose(raw_data, (2, 0, 1))
+
+    return {
+        'data': data,
+        'sfreq': sfreq,
+        'tmin': tmin,
+        'ch_names': ch_names,
+        'n_trials': data.shape[0],
+        'n_channels': data.shape[1],
+        'n_samples': data.shape[2]
+    }
+
+
+def create_mne_epochs(
+    eeg_data: Dict,
+    apply_baseline: bool = True,
+    crop_epochs: bool = True,
+    baseline: Optional[Tuple[float, float]] = None,
+    tmin: Optional[float] = None,
+    tmax: Optional[float] = None
+) -> mne.EpochsArray:
+    """
+    Create MNE EpochsArray from loaded EEG data.
+
+    Applies baseline correction and cropping to extract stimulus-related data.
+
+    Args:
+        eeg_data: Dictionary from load_eeg_from_mat()
+        apply_baseline: Whether to apply baseline correction
+        crop_epochs: Whether to crop to stimulus period
+        baseline: Baseline window (tmin, tmax). Defaults to config values.
+        tmin: Crop start time. Defaults to config EPOCH_TMIN.
+        tmax: Crop end time. Defaults to config EPOCH_TMAX.
+
+    Returns:
+        MNE EpochsArray object
+    """
+    # Convert to volts (data is in microvolts)
+    data_volts = eeg_data['data'] * DATA_SCALE_FACTOR
+
+    # Create MNE info object
+    info = mne.create_info(
+        ch_names=eeg_data['ch_names'],
+        sfreq=eeg_data['sfreq'],
+        ch_types='eeg'
+    )
+
+    # Create epochs with original tmin from the data
+    epochs = mne.EpochsArray(data_volts, info, tmin=eeg_data['tmin'], verbose=False)
+
+    # Apply baseline correction
+    if apply_baseline:
+        bl = baseline or (BASELINE_CORRECTION_TMIN, BASELINE_CORRECTION_TMAX)
+        epochs.apply_baseline(baseline=bl, verbose=False)
+
+    # Crop to stimulus period (removes pre-stimulus baseline and hardware artifact)
+    if crop_epochs:
+        crop_tmin = tmin if tmin is not None else EPOCH_TMIN
+        crop_tmax = tmax if tmax is not None else EPOCH_TMAX
+        epochs = epochs.crop(tmin=crop_tmin, tmax=crop_tmax)
+
+    return epochs
+
+
+def load_subject_eeg(
+    filepath: Union[str, Path],
+    apply_baseline: bool = True,
+    crop_epochs: bool = True
+) -> Tuple[np.ndarray, List[str], int]:
+    """
+    Load EEG data for a subject and return processed numpy array.
+
+    Convenience function that combines loading and MNE processing.
+
+    Args:
+        filepath: Path to .mat file
+        apply_baseline: Whether to apply baseline correction
+        crop_epochs: Whether to crop to stimulus period
+
+    Returns:
+        Tuple of:
+            - data: numpy array (trials, channels, timepoints)
+            - ch_names: list of channel names
+            - sfreq: sampling frequency
+    """
+    # Load raw data
+    eeg_data = load_eeg_from_mat(filepath)
+
+    # Create MNE epochs with processing
+    epochs = create_mne_epochs(
+        eeg_data,
+        apply_baseline=apply_baseline,
+        crop_epochs=crop_epochs
+    )
+
+    # Extract processed data
+    data = epochs.get_data()
+
+    return data, eeg_data['ch_names'], eeg_data['sfreq']
+
+
 def load_behavioral_data(participant_id: str, logs_dir: Optional[Path] = None) -> pd.DataFrame:
     """
     Load behavioral data (ratings) for a participant.
@@ -151,8 +305,11 @@ def load_stimulus_order(participant_id: str, logs_dir: Optional[Path] = None) ->
 def load_subject_data(
     participant_id: str,
     mat_filepath: Union[str, Path],
-    eeg_variable_name: str = "data_eeg",
-    logs_dir: Optional[Path] = None
+    logs_dir: Optional[Path] = None,
+    apply_baseline: bool = True,
+    crop_epochs: bool = True,
+    return_mne_epochs: bool = False,
+    exclude_trials: Optional[List[int]] = None
 ) -> Dict:
     """
     Load and merge EEG data with behavioral data for a single subject.
@@ -162,27 +319,33 @@ def load_subject_data(
     Args:
         participant_id: Participant identifier (e.g., "sub-001")
         mat_filepath: Path to preprocessed .mat file
-        eeg_variable_name: Name of the EEG data variable in the .mat file
         logs_dir: Path to behavioral logs directory
+        apply_baseline: Whether to apply baseline correction
+        crop_epochs: Whether to crop to stimulus period
+        return_mne_epochs: If True, also return MNE EpochsArray object
+        exclude_trials: List of trial indices to exclude (0-indexed).
+                       Both EEG and behavioral data will be filtered.
 
     Returns:
         Dictionary containing:
-            - 'eeg_data': Raw EEG data from MATLAB (structure depends on preprocessing)
+            - 'eeg_data': Processed EEG data array (trials, channels, timepoints)
+            - 'ch_names': List of channel names
+            - 'sfreq': Sampling frequency
             - 'behavioral': DataFrame with behavioral responses
             - 'stimulus_order': DataFrame with stimulus order
             - 'participant_id': Participant ID string
             - 'metadata': Additional info extracted from the data
+            - 'epochs': MNE EpochsArray (if return_mne_epochs=True)
+            - 'excluded_trials': List of excluded trial indices (if any)
     """
-    # Load EEG data
-    mat_data = load_mat_file(mat_filepath)
-
-    if eeg_variable_name not in mat_data:
-        available = list(mat_data.keys())
-        raise KeyError(
-            f"Variable '{eeg_variable_name}' not found. Available: {available}"
-        )
-
-    eeg_data = mat_data[eeg_variable_name]
+    # Load and process EEG data using new functions
+    raw_eeg = load_eeg_from_mat(mat_filepath)
+    epochs = create_mne_epochs(
+        raw_eeg,
+        apply_baseline=apply_baseline,
+        crop_epochs=crop_epochs
+    )
+    eeg_data = epochs.get_data()
 
     # Load behavioral data
     behavioral = load_behavioral_data(participant_id, logs_dir)
@@ -193,19 +356,55 @@ def load_subject_data(
     except FileNotFoundError:
         stimulus_order = None
 
-    # Extract metadata if available
+    # Apply trial exclusion if specified
+    n_trials_original = raw_eeg['n_trials']
+    if exclude_trials is not None and len(exclude_trials) > 0:
+        # Create mask for trials to keep
+        mask = np.ones(n_trials_original, dtype=bool)
+        mask[exclude_trials] = False
+
+        # Filter EEG data
+        eeg_data = eeg_data[mask]
+
+        # Filter behavioral data
+        behavioral = behavioral[mask].reset_index(drop=True)
+
+        # Filter stimulus order if available
+        if stimulus_order is not None:
+            stimulus_order = stimulus_order[mask].reset_index(drop=True)
+
+        # Filter MNE epochs if needed
+        if return_mne_epochs:
+            epochs = epochs[mask]
+
+    # Extract metadata
     metadata = {
-        'n_trials': len(behavioral),
-        'mat_keys': list(mat_data.keys()),
+        'n_trials': eeg_data.shape[0],
+        'n_trials_original': n_trials_original,
+        'n_trials_excluded': len(exclude_trials) if exclude_trials else 0,
+        'n_channels': raw_eeg['n_channels'],
+        'n_samples_raw': raw_eeg['n_samples'],
+        'n_samples_processed': eeg_data.shape[2],
+        'original_tmin': raw_eeg['tmin'],
     }
 
-    return {
+    result = {
         'eeg_data': eeg_data,
+        'ch_names': raw_eeg['ch_names'],
+        'sfreq': raw_eeg['sfreq'],
         'behavioral': behavioral,
         'stimulus_order': stimulus_order,
         'participant_id': participant_id,
         'metadata': metadata,
     }
+
+    if exclude_trials:
+        result['excluded_trials'] = exclude_trials
+
+    if return_mne_epochs:
+        result['epochs'] = epochs
+
+    return result
 
 
 def create_labels(
