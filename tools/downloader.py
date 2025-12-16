@@ -129,8 +129,20 @@ songs = [
     "6LACK - PRBLMS",
     "YUNGBLUD - parents",
     "Two Door Cinema Club - What You Know",
-    "Aminé - REEL IT IN"
+    "Aminé - REEL IT IN",
+    # --- New Lesser Known Pop Songs ---
+    "Charli XCX - Party 4 U",
+    "Rina Sawayama - XS",
+    "Carly Rae Jepsen - Run Away with Me",
+    "Robyn - Dancing On My Own",
+    "Tove Lo - Cool Girl",
+    "Betty Who - I Love You Always Forever",
+    "King Princess - 1950",
+    "Kim Petras - Close Your Eyes",
+    "MUNA - I Know A Place",
+    "Allie X - Catch"
 ]
+
 participant = "lesser_known"
 if __name__ == "__main__":
     download_fixed_segment(songs, participant)

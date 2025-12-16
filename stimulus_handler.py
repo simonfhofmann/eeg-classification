@@ -55,9 +55,8 @@ def _robust_sample(pool, k, pool_name=""):
 def _save_stimulus_list(filepath, trial_list_tuples):
     """Internal function to save the generated list (with pool labels) to a CSV."""
     try:
-        with open(filepath, 'w', newline='') as f:
+        with open(filepath, 'w', newline='', encoding='utf-8') as f:  # <-- Add encoding='utf-8'
             writer = csv.writer(f)
-            # --- NEW: Added origin_pool column ---
             writer.writerow(["stimulus_path", "origin_pool"])
             for item_tuple in trial_list_tuples:
                 writer.writerow(item_tuple)
@@ -70,12 +69,11 @@ def _load_stimulus_list(filepath):
     """Internal function to load a previously saved list (now as tuples)."""
     trial_list_tuples = []
     try:
-        with open(filepath, 'r') as f:
+        with open(filepath, 'r', encoding='utf-8') as f:  # <-- Add encoding='utf-8'
             reader = csv.reader(f)
             next(reader)  # Skip header
             for row in reader:
                 if row: # Make sure row is not empty
-                    # --- NEW: Appending a tuple (path, pool) ---
                     trial_list_tuples.append((row[0], row[1])) 
         return trial_list_tuples
     except Exception as e:
@@ -84,10 +82,11 @@ def _load_stimulus_list(filepath):
         raise
 
 def get_trial_list(participant_id, log_dir, stim_root_path, 
-                   familiar_genres, unfamiliar_genres, n_trials):
+                   familiar_genres, unfamiliar_genres, n_trials=None):
     """
     This is the main function for this module.
-    Builds a trial list by sampling and *tagging* items from two pools.
+    Builds a trial list by using ALL available items from both pools.
+    n_trials parameter is ignored - total trials = total available songs.
     """
     order_filepath = get_stim_order_filepath(participant_id, log_dir)
     
@@ -97,25 +96,23 @@ def get_trial_list(participant_id, log_dir, stim_root_path,
     else:
         print("No stimulus order file found. Creating a new one...")
         
-        # 1. Determine trial split
-        n_familiar = n_trials // 2
-        n_unfamiliar = n_trials - n_familiar
-        
-        # 2. Find all available .wav files for each pool
+        # 1. Find all available .wav files for each pool
         familiar_pool = _find_stimuli(stim_root_path, familiar_genres)
         unfamiliar_pool = _find_stimuli(stim_root_path, unfamiliar_genres)
         
-        # 3. Sample from each pool
-        familiar_list_sampled = _robust_sample(familiar_pool, n_familiar, "FAMILIAR")
-        unfamiliar_list_sampled = _robust_sample(unfamiliar_pool, n_unfamiliar, "UNFAMILIAR")
-
-        # --- NEW: Tag items with their origin pool ---
-        familiar_list_tagged = [(path, 'familiar_pool') for path in familiar_list_sampled]
-        unfamiliar_list_tagged = [(path, 'unfamiliar_pool') for path in unfamiliar_list_sampled]
+        # 2. Use ALL songs from each pool (no sampling)
+        print(f"Using all {len(familiar_pool)} songs from familiar pool")
+        print(f"Using all {len(unfamiliar_pool)} songs from unfamiliar pool")
+        
+        # 3. Tag items with their origin pool
+        familiar_list_tagged = [(path, 'familiar_pool') for path in familiar_pool]
+        unfamiliar_list_tagged = [(path, 'unfamiliar_pool') for path in unfamiliar_pool]
         
         # 4. Combine and shuffle the final list of tuples
         trial_list = familiar_list_tagged + unfamiliar_list_tagged
         random.shuffle(trial_list)
+        
+        print(f"Total trials: {len(trial_list)}")
         
         # 5. Save this "master plan" to disk immediately
         _save_stimulus_list(order_filepath, trial_list)
