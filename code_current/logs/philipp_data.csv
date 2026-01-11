@@ -1,0 +1,78 @@
+participant_id,trial_num,stimulus_name,origin_pool,familiarity_rating,liking_rating
+philipp,1,Miley Cyrus - Flowers (Lyrics).wav,familiar_pool,4,4
+philipp,2,Denzel Curry - Walkin (Lyrics).wav,unfamiliar_pool,2,3
+philipp,3,Oliver Tree - Alien Boy [Official Lyric Video].wav,unfamiliar_pool,1,2
+philipp,4,Kenny Mason - Hit (Lyrics).wav,unfamiliar_pool,1,3
+philipp,5,"Lady Gaga, Bradley Cooper - Shallow (Lyrics) (A Star Is Born Soundtrack).wav",familiar_pool,5,4
+philipp,6,Lil Nas X - Old Town Road (Lyrics) ft. Billy Ray Cyrus.wav,familiar_pool,4,3
+philipp,7,Aminé - Reel It In (Lyrics).wav,unfamiliar_pool,1,2
+philipp,8,The Blue Stones ＂Black Holes (Solid Ground)＂ [Official Lyric Video].wav,unfamiliar_pool,2,3
+philipp,9,Avicii - Wake Me Up (Official Lyric Video).wav,familiar_pool,4,4
+philipp,10,Ed Sheeran - Shape of You (Lyrics).wav,familiar_pool,4,4
+philipp,11,photosynthesis ｜ saba.wav,unfamiliar_pool,1,3
+philipp,12,Tones and I - Dance Monkey (Lyrics).wav,familiar_pool,5,2
+philipp,13,Rina Sawayama - XS (Lyrics).wav,unfamiliar_pool,1,3
+philipp,14,Two Door Cinema Club - What You Know (Lyrics) - ＂I can tell just what you want＂.wav,unfamiliar_pool,2,4
+philipp,15,DUCKWRTH - MICHUUL..wav,unfamiliar_pool,1,3
+philipp,16,Glass Animals - Heat Waves (Lyrics).wav,familiar_pool,3,3
+philipp,17,JUNGLE - KEEP MOVING (Lyrics).wav,unfamiliar_pool,3,4
+philipp,18,Billie Eilish - bad guy (Lyrics).wav,familiar_pool,4,3
+philipp,19,Barns Courtney - Glitter & Gold (Lyrics).wav,unfamiliar_pool,2,2
+philipp,20,Queen – Bohemian Rhapsody (Lyrics).wav,familiar_pool,4,4
+philipp,21,One Direction - What Makes You Beautiful(Lyrics)🎵.wav,familiar_pool,4,3
+philipp,22,KennyHoopla - ESTELLA Ft Travis Barker (Lyrics).wav,unfamiliar_pool,2,4
+philipp,23,Shake It Off - Taylor Swift (Lyrics) 🎵.wav,familiar_pool,4,4
+philipp,24,Imagine Dragons - Believer (Lyrics).wav,familiar_pool,4,5
+philipp,25,DON BROCO - T-Shirt Song (Lyric Video).wav,unfamiliar_pool,1,4
+philipp,26,"Ariana Grande - thank u, next (Official Lyric Video).wav",familiar_pool,2,4
+philipp,27,BTS - Dynamite (Lyrics).wav,familiar_pool,4,4
+philipp,28,Adele - Hello (Lyrics).wav,familiar_pool,4,5
+philipp,29,"Post Malone, Swae Lee - Sunflower (Lyrics).wav",familiar_pool,2,4
+philipp,30,Mark Ronson - Uptown Funk (Lyrics) ft. Bruno Mars.wav,familiar_pool,4,2
+philipp,31,Coldplay - Viva la Vida (Lyrics).wav,familiar_pool,4,4
+philipp,32,SZA - Kill Bill (Lyrics).wav,familiar_pool,2,4
+philipp,33,The Midnight - Days of Thunder (lyrics).wav,unfamiliar_pool,1,4
+philipp,34,Olivia Rodrigo - good 4 u (Lyrics).wav,familiar_pool,4,4
+philipp,35,EARTHGANG - Meditate (feat. J.I.D.) (lyrics).wav,unfamiliar_pool,1,1
+philipp,36,Cool Girl - Tove Lo (Lyrics) 🎵.wav,unfamiliar_pool,1,4
+philipp,37,Nightly - The Movies (Lyric video).wav,unfamiliar_pool,2,2
+philipp,38,Lewis Capaldi - Someone You Loved (Lyrics).wav,familiar_pool,4,4
+philipp,39,COIN - Crash My Car (Lyric Video).wav,unfamiliar_pool,1,4
+philipp,40,cleopatrick - hometown [lyrics].wav,unfamiliar_pool,2,4
+philipp,41,Charli XCX - PARTY 4 U (Lyrics).wav,unfamiliar_pool,1,2
+philipp,42,Twenty One Pilots - Stressed Out (Lyrics).wav,familiar_pool,5,5
+philipp,43,Betty Who - I Love You Always Forever (Lyrics) (From To All The Boys： Always and Forever).wav,unfamiliar_pool,1,2
+philipp,44,The Score - Unstoppable (Lyric Video).wav,unfamiliar_pool,2,3
+philipp,45,Royal Blood - Typhoons (Lyrics).wav,unfamiliar_pool,2,4
+philipp,46,Saint Motel - ＂Move＂ Lyrics ｜ Official FIFA17 Soundtrack [HQ].wav,unfamiliar_pool,2,4
+philipp,47,Smino - Wild Irish Roses [Lyric Video].wav,unfamiliar_pool,2,4
+philipp,48,DREAMERS - Sweet Disaster (Official Lyric Video).wav,unfamiliar_pool,2,2
+philipp,49,Bakar - Hell N Back (Lyrics) ft. Summer Walker.wav,unfamiliar_pool,2,3
+philipp,50,Welshly Arms - Legendary (Lyrics).wav,unfamiliar_pool,4,4
+philipp,51,YUNGBLUD - Parents (Lyrics ⧸ Lyric Video).wav,unfamiliar_pool,3,4
+philipp,52,Robyn - Dancing On My Own (Lyrics) ＂I'm in the corner watching you kiss her＂.wav,unfamiliar_pool,1,2
+philipp,53,Des Rocs - Let Me Live ⧸ Let Me Die (Lyrics).wav,unfamiliar_pool,2,4
+philipp,54,Allie X - Catch (Lyric Video).wav,unfamiliar_pool,2,2
+philipp,55,Hozier - Take Me To Church (Lyrics).wav,familiar_pool,4,4
+philipp,56,1950 ｜｜ King Princess Lyrics.wav,unfamiliar_pool,4,5
+philipp,57,Eminem - Lose Yourself (Lyrics).wav,familiar_pool,5,5
+philipp,58,The Killers - Mr Brightside (Lyrics).wav,familiar_pool,5,5
+philipp,59,Dua Lipa - Levitating (Lyrics).wav,familiar_pool,5,5
+philipp,60,Run Away With Me - Carly Rae Jepsen (Lyrics) 🎵.wav,unfamiliar_pool,2,4
+philipp,61,Colorado - KOTA The Friend (Lyrics).wav,unfamiliar_pool,3,3
+philipp,62,6LACK - PRBLMS [Lyric Video].wav,unfamiliar_pool,1,1
+philipp,63,grandson - Blood ⧸⧸ Water (Lyrics).wav,unfamiliar_pool,1,4
+philipp,64,Britney Spears - Baby One More Time (Lyrics).wav,familiar_pool,5,4
+philipp,65,Doja Cat - Kiss Me More (Lyrics) ft. SZA.wav,familiar_pool,2,3
+philipp,66,The Weeknd - Blinding Lights (Lyrics).wav,familiar_pool,4,5
+philipp,67,IDK - Digital [lyrics].wav,unfamiliar_pool,2,1
+philipp,68,Harry Styles - As It Was (Lyrics).wav,familiar_pool,4,4
+philipp,69,OneRepublic - Counting Stars (Lyrics).wav,familiar_pool,4,4
+philipp,70,The Chainsmokers - Closer (Lyrics) ft. Halsey.wav,familiar_pool,4,5
+philipp,71,Justin Bieber - Sorry (Lyrics).wav,familiar_pool,4,4
+philipp,72,The Band CAMINO - Daphne Blue (Official Lyric Video).wav,unfamiliar_pool,2,4
+philipp,73,J.I.D - 151 Rum (Lyrics).wav,unfamiliar_pool,1,1
+philipp,74,middle finger lyrics.wav,unfamiliar_pool,1,2
+philipp,75,"Shawn Mendes, Camila Cabello - Señorita (Lyrics) Letra.wav",familiar_pool,4,4
+philipp,76,Kim Petras - Close Your Eyes [LYRICS VIDEO].wav,unfamiliar_pool,1,4
+philipp,77,MUNA - I Know A Place (Lyrics).wav,unfamiliar_pool,2,3
