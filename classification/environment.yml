@@ -1,4 +1,4 @@
-name: eeg_classification
+name: eeg_classifier_model
 channels:
   - pytorch
   - conda-forge
@@ -22,11 +22,6 @@ dependencies:
   - matplotlib>=3.7
   - seaborn>=0.12
 
-  # Deep learning (PyTorch)
-  # For GPU support: replace 'cpuonly' with 'pytorch-cuda=12.1' (or your CUDA version)
-  - pytorch>=2.0
-  - cpuonly
-
   # Jupyter for notebooks
   - jupyter
   - jupyterlab
@@ -35,6 +30,4 @@ dependencies:
   # Development tools
   - pip
 
-  - pip:
-    # MNE for additional EEG processing (optional)
-    - mne>=1.6
+

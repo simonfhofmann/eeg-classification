@@ -10,16 +10,17 @@ from pathlib import Path
 # --------------------------
 # 1. PATHS
 # --------------------------
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).parent.parent
 PROJECT_ROOT = BASE_DIR.parent
 
 # Data paths
-DATA_DIR = BASE_DIR / "data"
+DATA_DIR = PROJECT_ROOT / "raw_eeg"
 RESULTS_DIR = BASE_DIR / "results"
 MODELS_DIR = BASE_DIR / "models"
 
 # Path to preprocessed .mat files (adjust as needed)
 MAT_DATA_DIR = PROJECT_ROOT / "preprocessed_data"
+
 
 # Path to behavioral logs from experiment
 LOGS_DIR = PROJECT_ROOT / "logs"

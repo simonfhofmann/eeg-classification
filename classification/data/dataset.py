@@ -264,3 +264,159 @@ def combine_datasets(datasets: List[EEGDataset]) -> EEGDataset:
         channel_names=channel_names,
         sampling_rate=sampling_rate
     )
+
+
+# ======================================================================
+# Braindecode-compatible Dataset Classes
+# ======================================================================
+
+class BraindecodeDataset:
+    """
+    Dataset wrapper compatible with Braindecode/Skorch.
+
+    This is a minimal wrapper that makes EEG data arrays compatible with
+    Braindecode's EEGClassifier. It provides the X, y attributes and
+    description dict that Braindecode expects.
+
+    Args:
+        X: EEG data array of shape (n_trials, n_channels, n_timepoints)
+        y: Labels array of shape (n_trials,)
+        sfreq: Sampling frequency in Hz (optional, for metadata)
+        ch_names: Channel names (optional, for metadata)
+
+    Example:
+        >>> dataset = BraindecodeDataset(X_train, y_train)
+        >>> clf = EEGClassifier(model, ...)
+        >>> clf.fit(dataset.X, dataset.y)
+    """
+
+    def __init__(
+        self,
+        X: np.ndarray,
+        y: np.ndarray,
+        sfreq: Optional[int] = None,
+        ch_names: Optional[List[str]] = None
+    ):
+        if X.ndim != 3:
+            raise ValueError(
+                f"X must be 3D (n_trials, n_channels, n_timepoints), got shape {X.shape}"
+            )
+        if len(X) != len(y):
+            raise ValueError(
+                f"X ({len(X)} trials) and y ({len(y)} labels) must have same length"
+            )
+
+        self.X = X.astype(np.float32)
+        self.y = y.astype(np.int64)
+
+        # Description dict for Braindecode compatibility
+        self.description = {
+            'n_trials': X.shape[0],
+            'n_channels': X.shape[1],
+            'n_times': X.shape[2],
+        }
+
+        if sfreq is not None:
+            self.description['sfreq'] = sfreq
+        if ch_names is not None:
+            self.description['ch_names'] = ch_names
+
+    @property
+    def n_trials(self) -> int:
+        return self.X.shape[0]
+
+    @property
+    def n_channels(self) -> int:
+        return self.X.shape[1]
+
+    @property
+    def n_times(self) -> int:
+        return self.X.shape[2]
+
+    def __len__(self) -> int:
+        return self.n_trials
+
+    def __repr__(self) -> str:
+        return (
+            f"BraindecodeDataset(n_trials={self.n_trials}, "
+            f"n_channels={self.n_channels}, n_times={self.n_times})"
+        )
+
+    @classmethod
+    def from_container(cls, container: 'EEGDataContainer') -> 'BraindecodeDataset':
+        """
+        Create BraindecodeDataset from EEGDataContainer.
+
+        Args:
+            container: EEGDataContainer with X and y
+
+        Returns:
+            BraindecodeDataset instance
+        """
+        # Import here to avoid circular imports
+        from data.containers import EEGDataContainer
+
+        if container.y is None:
+            raise ValueError("Container must have labels (y)")
+
+        return cls(
+            X=container.X,
+            y=container.y,
+            sfreq=container.sfreq,
+            ch_names=container.ch_names
+        )
+
+
+def create_braindecode_datasets(
+    splits: 'SplitDataContainer'
+) -> Dict[str, BraindecodeDataset]:
+    """
+    Create BraindecodeDataset instances from SplitDataContainer.
+
+    Args:
+        splits: SplitDataContainer with train, val, test EEGDataContainers
+
+    Returns:
+        Dictionary with 'train', 'val' (if present), 'test' BraindecodeDatasets
+
+    Example:
+        >>> splits = stratified_train_val_test_split(data)
+        >>> datasets = create_braindecode_datasets(splits)
+        >>> train_set = datasets['train']
+    """
+    # Import here to avoid circular imports
+    from data.containers import SplitDataContainer
+
+    datasets = {
+        'train': BraindecodeDataset.from_container(splits.train),
+        'test': BraindecodeDataset.from_container(splits.test),
+    }
+
+    if splits.val is not None:
+        datasets['val'] = BraindecodeDataset.from_container(splits.val)
+
+    return datasets
+
+
+def reshape_for_braindecode(X: np.ndarray) -> np.ndarray:
+    """
+    Reshape data for Braindecode's 4D input format.
+
+    Braindecode/EEGNet expects input shape: (n_trials, n_channels, n_times, 1)
+
+    Args:
+        X: Data array of shape (n_trials, n_channels, n_times)
+
+    Returns:
+        Reshaped array of shape (n_trials, n_channels, n_times, 1)
+
+    Example:
+        >>> X_4d = reshape_for_braindecode(train_set.X)
+        >>> clf.fit(X_4d, train_set.y)
+    """
+    if X.ndim == 3:
+        return X.reshape(X.shape[0], X.shape[1], X.shape[2], 1)
+    elif X.ndim == 4:
+        return X  # Already correct shape
+    else:
+        raise ValueError(f"Expected 3D or 4D array, got shape {X.shape}")

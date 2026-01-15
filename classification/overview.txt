@@ -1,0 +1,55 @@
+Repository Overview
+
+
+  Directory Structure
+
+  classification/
+  ├── config.py              # Central configuration (sampling rate, epochs, markers)
+  ├── data/                  # Data loading & preprocessing
+  │   ├── loader.py          # Load .mat files, create MNE epochs, generate labels
+  │   ├── preprocessor.py    # Epoch extraction, normalization
+  │   └── dataset.py         # Sklearn/PyTorch dataset classes
+  ├── features/              # Feature extraction
+  │   ├── time_domain.py     # Variance, Hjorth parameters, zero-crossings
+  │   ├── frequency_domain.py # Band power, spectral entropy, PSD
+  │   └── connectivity.py    # Correlation, coherence
+  ├── models/
+  │   ├── base.py            # Abstract BaseClassifier
+  │   ├── svm/               # SVM classifier
+  │   ├── statistical/       # LDA, Logistic Regression
+  │   └── deep_learning/     # ★ EEGNet implementation
+  │       ├── eegnet.py      # Native PyTorch EEGNet
+  │       └── train_eegnet.py # Braindecode training script
+  ├── evaluation/            # Metrics & cross-validation
+  ├── scripts/               # Training entry points
+  ├── notebooks/             # Data exploration
+  └── results/               # Output directory
+
+  Deep Learning (Braindecode)
+
+  The key file is models/deep_learning/train_eegnet.py which:
+  - Uses braindecode.models.EEGNet with braindecode.classifier.EEGClassifier
+  - Implements class-weighted loss for imbalanced data
+  - Uses cosine annealing LR schedule with early stopping (15 epochs patience)
+  - Splits data 70/15/15 (train/val/test)
+  - Excludes neutral ratings (rating=3) from classification
+  - Note: Contains hardcoded Windows paths that may need adjustment
+
+  Classification Targets
+
+  | Target             | Description                        |
+  |--------------------|------------------------------------|
+  | familiarity_binary | Familiar (4-5) vs Unfamiliar (1-2) |
+  | liking_binary      | Liked vs Disliked                  |
+  | origin_pool        | Familiar vs unfamiliar genre pool  |
+
+  Key Parameters (from config.py)
+
+  - Sampling rate: 500 Hz
+  - 30 channels
+  - Stimulus duration: 32 seconds
+  - Epochs: -3.0s to 32.0s (baseline: -3.0 to -0.1s)
+
+  Data Pipeline
+
+  .mat files → loader.py → MNE epochs → feature extraction → cross-validation → model training
