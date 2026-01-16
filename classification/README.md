@@ -1,290 +1,215 @@
-# EEG Familiarity Classification
+# EEG Music Familiarity Classification
 
-Classification module for EEG-based familiarity detection from the Music Familiarity Experiment.
+Classification pipeline for EEG responses to familiar vs unfamiliar music.
 
-## Overview
-
-This module provides a structured framework for:
-- Loading preprocessed EEG data from MATLAB (.mat files)
-- Merging EEG data with behavioral responses (familiarity/liking ratings)
-- Extracting features (time-domain, frequency-domain, connectivity)
-- Training classification models (SVM, Deep Learning, Statistical methods)
-- Evaluating model performance with proper cross-validation
-
-## Project Structure
+## Directory Structure
 
 ```
-classification/
-├── config.py                 # Central configuration (paths, parameters, markers)
-├── data/                     # Data loading and preprocessing
-│   ├── loader.py            # Load .mat files and behavioral CSV
-│   ├── preprocessor.py      # Epoch extraction, normalization
-│   └── dataset.py           # Dataset classes (sklearn/PyTorch compatible)
-├── features/                 # Feature extraction
-│   ├── time_domain.py       # Variance, Hjorth parameters, zero-crossings
-│   ├── frequency_domain.py  # Band power, spectral entropy, PSD
-│   └── connectivity.py      # Correlation, coherence, PLV
-├── models/                   # Classification models
-│   ├── base.py              # Abstract base class (all models inherit from this)
-│   ├── svm/                 # Support Vector Machine
-│   ├── deep_learning/       # EEGNet, CNN-LSTM
-│   └── statistical/         # LDA, Logistic Regression
-├── evaluation/               # Model evaluation
-│   ├── metrics.py           # Accuracy, F1, AUC, confusion matrix
-│   └── cross_validation.py  # Stratified K-Fold, Leave-One-Subject-Out
-├── utils/                    # Utilities
-│   └── visualization.py     # Plotting functions
-├── scripts/                  # Executable scripts
-│   ├── train.py             # Main training script
-│   └── evaluate.py          # Model comparison script
-├── notebooks/                # Jupyter notebooks for exploration
-└── results/                  # Output directory for models and figures
+Lab/
+├── recording_logs/              # Behavioral data (familiarity/liking ratings)
+│   ├── {name}_data.csv          # Trial-level ratings per participant
+│   └── {name}_stimulus_order.csv
+├── raw_eeg/                     # Raw EEG files (.vhdr, .eeg, .vmrk)
+├── preprocessed_data/           # MATLAB-preprocessed .mat files (optional)
+└── Recording/
+    └── classification/          # This repo
+        ├── config.py            # All paths & parameters
+        ├── data/
+        │   ├── containers.py    # EEGDataContainer class
+        │   └── loaders/
+        │       ├── raw_loader.py    # Load raw EEG + labels (recommended)
+        │       └── matlab_loader.py # Load MATLAB-preprocessed data
+        ├── models/
+        │   └── deep_learning/   # EEGNet, trainer
+        ├── features/            # Feature extraction (time/freq/connectivity)
+        └── notebooks/
 ```
 
 ## Quick Start
 
-### 1. Install Dependencies
-
-```bash
-# Core dependencies
-pip install numpy scipy pandas scikit-learn matplotlib
-
-# For .mat v7.3 files (HDF5 format)
-pip install h5py
-
-# For deep learning (optional)
-pip install torch
-
-# For MNE-based preprocessing (optional)
-pip install mne
-```
-
-### 2. Load Data
-
 ```python
-from data.loader import load_subject_data, create_labels
+from data.loaders.raw_loader import load_raw_eeg
 
-# Load preprocessed EEG and behavioral data
-subject_data = load_subject_data(
-    participant_id="sub-001",
-    mat_filepath="path/to/sub-001_preprocessed.mat"
+# Load EEG with familiarity labels
+data = load_raw_eeg(
+    filepath="path/to/participant.vhdr",
+    participant_id="Sub01",  # Must match key in PARTICIPANT_INFO
+    target_type="familiarity_binary"
 )
 
-eeg_epochs = subject_data['eeg_data']  # Shape: (n_trials, n_channels, n_samples)
-behavioral = subject_data['behavioral']  # DataFrame with ratings
-
-# Create classification labels
-labels = create_labels(behavioral, target_type="familiarity_binary")
+print(data)          # EEGDataContainer(X=(n_trials, 30, 17500), sfreq=500Hz, ...)
+print(data.X.shape)  # (n_trials, n_channels, n_timepoints)
+print(data.y)        # Labels: 0=unfamiliar, 1=familiar
 ```
 
-### 3. Extract Features
+## Configuration (`config.py`)
+
+### Paths
+| Variable | Description |
+|----------|-------------|
+| `DATA_DIR` | Raw EEG files (.vhdr) |
+| `LOGS_DIR` | Behavioral logs with ratings |
+| `MAT_DATA_DIR` | MATLAB-preprocessed .mat files |
+
+### EEG Parameters
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| `SAMPLING_RATE` | 500 Hz | Target sampling rate |
+| `STIMULUS_DURATION` | 32.0 s | Music clip length |
+| `RAW_EPOCH_TMIN` | -3.0 s | Epoch start (includes baseline) |
+| `RAW_EPOCH_TMAX` | 32.0 s | Epoch end |
+| `N_CHANNELS` | 30 | EEG channels (excludes EOG/physio) |
+
+### Participants (`PARTICIPANT_INFO`)
+| ID | Name | Notes |
+|----|------|-------|
+| Sub01 | yannick | 60 trials, uses S6 end marker |
+| Sub02 | daniel | Has duplicate stimuli in log |
+| Sub03 | simon | Crash at trial 31 (auto-excluded) |
+| Sub04 | karsten | - |
+| Sub05 | philipp | - |
+
+### EEG Markers
+| Marker | Code | Description |
+|--------|------|-------------|
+| BASELINE_START | S1 | Baseline period starts |
+| STIMULUS_START | S2 | Music onset (epoching reference) |
+| STIMULUS_END | S5/S6 | Music ends |
+| EXPERIMENT_RESUME | S14 | After crash recovery |
+
+## Target Types
+
+| Type | Description | Labels |
+|------|-------------|--------|
+| `familiarity_binary` | Rating 4-5 vs 1-2 (excludes 3) | 0/1 |
+| `liking_binary` | Rating 4-5 vs 1-2 (excludes 3) | 0/1 |
+| `origin_pool` | From familiar vs unfamiliar pool | 0/1 |
+| `familiarity_multiclass` | Raw ratings | 0-5 |
+
+## EEGDataContainer
+
+Unified data container returned by all loaders.
+
+### Attributes
+```python
+data.X              # np.ndarray (n_trials, n_channels, n_timepoints)
+data.y              # np.ndarray (n_trials,) - labels
+data.sfreq          # int - sampling frequency (500 Hz)
+data.ch_names       # List[str] - 30 channel names
+data.participant_id # str
+data.metadata       # dict - preprocessing info, excluded trials, etc.
+```
+
+### Properties
+```python
+data.shape          # (n_trials, n_channels, n_timepoints)
+data.n_trials       # number of trials
+data.n_channels     # 30
+data.n_timepoints   # 17500 (35s at 500Hz)
+data.duration       # 35.0 seconds
+```
+
+### Methods
+```python
+data.select_trials(indices)       # Subset trials by index
+data.select_channels(['Fz','Cz']) # Subset channels by name
+data.to_microvolts()              # Convert V -> µV
+data.copy()                       # Deep copy
+```
+
+## Log File Format
+
+CSV files in `recording_logs/`:
+```csv
+participant_id,trial_num,stimulus_name,origin_pool,familiarity_rating,liking_rating
+yannick,1,Song.wav,unfamiliar_pool,2,4
+yannick,2,Song2.wav,familiar_pool,5,5
+```
+
+## Preprocessing Pipeline
+
+The `RawEEGLoader` applies:
+
+1. **Bandpass filter**: 0.5-60 Hz
+2. **Notch filter**: 50 Hz (line noise)
+3. **Resampling**: to 500 Hz
+4. **Epoching**: -3.0 to 32.0 s around stimulus onset (S2 marker)
+5. **Baseline correction**: -3.0 to -0.1 s
+6. **Trial exclusion**: Crash trials auto-excluded per `PARTICIPANT_INFO`
+
+### Custom Preprocessing
+```python
+from data.loaders.raw_loader import RawEEGLoader
+
+config = {
+    'l_freq': 1.0,           # High-pass cutoff
+    'h_freq': 40.0,          # Low-pass cutoff
+    'apply_ica': True,       # Enable ICA artifact removal
+    'ica_n_components': 15,
+}
+loader = RawEEGLoader(preprocessing_config=config)
+data = loader.load("file.vhdr", "Sub01")
+```
+
+## For Deep Learning
 
 ```python
-from features.frequency_domain import extract_frequency_features
-from features.time_domain import extract_time_features
+import torch
+from torch.utils.data import TensorDataset, DataLoader
+from data.loaders.raw_loader import load_raw_eeg
 
-# Frequency-domain features (band power, spectral entropy)
-freq_features = extract_frequency_features(eeg_epochs)
+# Load data
+data = load_raw_eeg("file.vhdr", "Sub01", target_type="familiarity_binary")
 
-# Time-domain features (variance, Hjorth parameters)
-time_features = extract_time_features(eeg_epochs)
+# Convert to PyTorch
+X = torch.tensor(data.X, dtype=torch.float32)
+y = torch.tensor(data.y, dtype=torch.long)
 
-# Combine features
+# Create DataLoader
+dataset = TensorDataset(X, y)
+train_loader = DataLoader(dataset, batch_size=8, shuffle=True)
+
+# Input shape for models: (batch, channels, timepoints) = (8, 30, 17500)
+for X_batch, y_batch in train_loader:
+    print(X_batch.shape)  # torch.Size([8, 30, 17500])
+    break
+```
+
+## Loading Multiple Participants
+
+```python
+from data.loaders.raw_loader import RawEEGLoader
+from config import PARTICIPANT_INFO, DATA_DIR
 import numpy as np
-X = np.concatenate([freq_features, time_features], axis=1)
+
+loader = RawEEGLoader()
+all_X, all_y, all_subjects = [], [], []
+
+for subj_id, info in PARTICIPANT_INFO.items():
+    eeg_path = DATA_DIR / info['eeg_file']
+    data = loader.load(eeg_path, subj_id, target_type="origin_pool")
+
+    all_X.append(data.X)
+    all_y.append(data.y)
+    all_subjects.extend([subj_id] * data.n_trials)
+
+X = np.concatenate(all_X, axis=0)
+y = np.concatenate(all_y, axis=0)
+print(f"Total: {len(y)} trials from {len(PARTICIPANT_INFO)} participants")
 ```
 
-### 4. Train a Model
+## Metadata
 
+After loading, `data.metadata` contains:
 ```python
-from models.svm import SVMClassifier
-from evaluation.cross_validation import cross_validate
-
-# Create classifier
-model = SVMClassifier(kernel="rbf", C=1.0)
-
-# Cross-validation
-results = cross_validate(
-    model=model,
-    X=X,
-    y=labels,
-    cv_strategy="stratified_kfold",
-    n_folds=5
-)
-
-print(f"Accuracy: {results['mean_score']:.3f} ± {results['std_score']:.3f}")
+{
+    'source': 'raw_braindecode',
+    'target_type': 'familiarity_binary',
+    'n_epochs_original': 60,
+    'n_epochs_final': 45,           # After exclusions
+    'excluded_trials_crash': [32],  # Crash-related
+    'excluded_trials_labels': [4, 5, ...],  # Ambiguous ratings
+    'kept_trial_nums': [1, 2, 3, 6, ...],
+    'preprocessing_config': {...},
+}
 ```
-
-### 5. Using the Training Script
-
-```bash
-python scripts/train.py \
-    --subject sub-001 \
-    --mat-file ../preprocessed_data/sub-001.mat \
-    --model svm \
-    --target familiarity_binary \
-    --features frequency \
-    --cv-folds 5
-```
-
-## Available Models
-
-### SVM (Support Vector Machine)
-```python
-from models.svm import SVMClassifier, LinearSVM, RBFSVM
-
-model = SVMClassifier(kernel="rbf", C=1.0, gamma="scale")
-```
-
-### LDA (Linear Discriminant Analysis)
-```python
-from models.statistical import LDAClassifier
-
-model = LDAClassifier(solver="svd")
-```
-
-### Logistic Regression
-```python
-from models.statistical import LogisticClassifier
-
-model = LogisticClassifier(C=1.0, penalty="l2")
-```
-
-### EEGNet (Deep Learning)
-```python
-from models.deep_learning import EEGNetClassifier
-
-model = EEGNetClassifier(
-    n_channels=59,
-    n_samples=16000,  # 32s at 500Hz
-    n_classes=2,
-    dropout_rate=0.5
-)
-```
-
-## Classification Targets
-
-Available in `config.py`:
-
-| Target | Description |
-|--------|-------------|
-| `familiarity_binary` | Familiar (4-5) vs Unfamiliar (1-2) |
-| `liking_binary` | Liked (4-5) vs Disliked (1-2) |
-| `origin_pool` | From familiar vs unfamiliar genre pool |
-| `familiarity_multiclass` | 5-class (ratings 1-5) |
-
-## Cross-Validation Strategies
-
-### Stratified K-Fold
-```python
-from evaluation.cross_validation import cross_validate
-
-results = cross_validate(model, X, y, cv_strategy="stratified_kfold", n_folds=5)
-```
-
-### Leave-One-Subject-Out (LOSO)
-```python
-results = cross_validate(
-    model, X, y,
-    cv_strategy="leave_one_subject_out",
-    subject_ids=subject_ids
-)
-```
-
-## Adding a New Model
-
-1. Create a new file in the appropriate `models/` subdirectory
-2. Inherit from `BaseClassifier`:
-
-```python
-from models.base import BaseClassifier
-
-class MyNewClassifier(BaseClassifier):
-    def __init__(self, param1=1.0, **kwargs):
-        super().__init__(name="MyNewClassifier", **kwargs)
-        self.param1 = param1
-        # Initialize your model here
-
-    def fit(self, X, y, **kwargs):
-        # Training logic
-        self.is_fitted = True
-        return self
-
-    def predict(self, X):
-        # Prediction logic
-        return predictions
-
-    def predict_proba(self, X):
-        # Optional: probability predictions
-        return probabilities
-```
-
-3. Add to the module's `__init__.py`
-
-## EEG Markers Reference
-
-From the experiment:
-
-| Marker | Event |
-|--------|-------|
-| 1 | EXPERIMENT_START |
-| 2 | EXPERIMENT_END |
-| 3 | BREAK_START |
-| 4 | BREAK_END |
-| 10 | BASELINE_START |
-| 20 | STIMULUS_START |
-| 30 | STIMULUS_END |
-
-## Data Flow
-
-```
-┌─────────────────┐     ┌─────────────────┐
-│  MATLAB/EEGLAB  │     │  Behavioral CSV │
-│  Preprocessing  │     │  (Ratings)      │
-└────────┬────────┘     └────────┬────────┘
-         │                       │
-         ▼                       ▼
-    ┌────────────────────────────────┐
-    │      data/loader.py            │
-    │   load_subject_data()          │
-    └───────────────┬────────────────┘
-                    │
-                    ▼
-    ┌────────────────────────────────┐
-    │    features/ extraction        │
-    │  time_domain / frequency_domain│
-    └───────────────┬────────────────┘
-                    │
-                    ▼
-    ┌────────────────────────────────┐
-    │      models/ classifiers       │
-    │   SVM / DL / Statistical       │
-    └───────────────┬────────────────┘
-                    │
-                    ▼
-    ┌────────────────────────────────┐
-    │   evaluation/ metrics & CV     │
-    └────────────────────────────────┘
-```
-
-## Tips for Team Collaboration
-
-1. **Each team member** can work in their own model subdirectory
-2. **All models** should inherit from `BaseClassifier` for consistency
-3. **Use the same** evaluation pipeline (`cross_validate`) for fair comparison
-4. **Save results** to `results/` with descriptive filenames
-5. **Document** hyperparameters and findings in notebooks
-
-## Notebooks
-
-Use the `notebooks/` directory for:
-- Data exploration
-- Feature visualization
-- Model prototyping
-- Results analysis
-
-## References
-
-- EEGNet: Lawhern et al. (2018). "EEGNet: A Compact Convolutional Neural Network for EEG-based Brain-Computer Interfaces"
-- Band power features: Standard frequency bands (delta, theta, alpha, beta, gamma)
-- Hjorth parameters: Hjorth (1970). "EEG analysis based on time domain properties"

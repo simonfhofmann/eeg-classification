@@ -23,7 +23,7 @@ MAT_DATA_DIR = PROJECT_ROOT / "preprocessed_data"
 
 
 # Path to behavioral logs from experiment
-LOGS_DIR = PROJECT_ROOT / "logs"
+LOGS_DIR = PROJECT_ROOT / "recording_logs"
 
 # --------------------------
 # 2. EEG PARAMETERS
@@ -58,30 +58,71 @@ DATA_SCALE_FACTOR = 1e-6
 # --------------------------
 # 3. EXPERIMENT MARKERS
 # --------------------------
-# Ensure they match recording markers!
+# Marker codes from BrainVision annotations (Stimulus/S X -> code X)
 MARKERS = {
-    """
-    # --- Experiment Control ---
-    "EXPERIMENT_START": 1,
-    "EXPERIMENT_END": 2,
-    "BREAK_START": 3,
-    "BREAK_END": 4,
-
     # --- Trial Phases ---
-    "BASELINE_START": 10,
-    "STIMULUS_START": 20,
-    "STIMULUS_END": 30,
-    """
-    # --- Experiment Control ---
-    "EXPERIMENT_START": 254,
-    "EXPERIMENT_END": 255,
-    "BREAK_START": 99, # not used in current setup
-    "BREAK_END": 99, # not used in current setup
+    "BASELINE_START": 1,      # S1: baseline period starts
+    "STIMULUS_START": 2,      # S2: stimulus (music) starts - use this for epoching
+    "STIMULUS_END": 5,        # S5: stimulus ends (default for most participants)
+    "STIMULUS_END_ALT": 6,    # S6: stimulus ends (Sub01/Yannick only)
 
-    # --- Trial Phases ---
-    "BASELINE_START": 1,
-    "STIMULUS_START": 2,
-    "STIMULUS_END": 3,
+    # --- Experiment Control ---
+    "BREAK": 3,               # S3: break marker
+    "EXPERIMENT_RESUME": 14,  # S14: experiment resumed after crash
+    "EXPERIMENT_END": 15,     # S15: experiment ended
+}
+
+# --------------------------
+# 3.1 PARTICIPANT-SPECIFIC INFO
+# --------------------------
+# Information about recording issues, crashes, and special handling needed
+PARTICIPANT_INFO = {
+    "Sub01": {
+        "name": "yannick",
+        "eeg_file": "Yanick.vhdr",
+        "log_file": "yannick_data.csv",
+        "stimulus_end_marker": 6,  # Uses S6 instead of S5
+        "crashes": [],  # No crashes
+        "notes": "Different protocol - 60 trials, longer baseline (~8s)",
+    },
+    "Sub02": {
+        "name": "daniel",
+        "eeg_file": "daniel_1_eeg.vhdr",
+        "log_file": "daniel_data.csv",
+        "stimulus_end_marker": 5,
+        "crashes": [],
+        "notes": "Has duplicate stimuli in log (Avicii played 5x)",
+    },
+    "Sub03": {
+        "name": "simon",
+        "eeg_file": "Simon.vhdr",
+        "log_file": "simon_data.csv",
+        "stimulus_end_marker": 5,
+        "crashes": [
+            {
+                "after_eeg_trial": 31,  # Crash occurred after this EEG trial
+                "repeated_eeg_trial": 32,  # This EEG trial is a repeat (exclude)
+                "resume_marker": 14,  # S14 marker indicates resume
+            }
+        ],
+        "notes": "Program crashed at trial 31, trial repeated",
+    },
+    "Sub04": {
+        "name": "karsten",
+        "eeg_file": "karsten.vhdr",
+        "log_file": "karsten_data.csv",
+        "stimulus_end_marker": 5,
+        "crashes": [],
+        "notes": "",
+    },
+    "Sub05": {
+        "name": "philipp",
+        "eeg_file": "philipp.vhdr",
+        "log_file": "philipp_data.csv",
+        "stimulus_end_marker": 5,
+        "crashes": [],
+        "notes": "",
+    },
 }
 
 # --------------------------
